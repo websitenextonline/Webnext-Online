@@ -23,3 +23,40 @@ html,body{max-width:100%;overflow-x:clip}
 #md.md{padding:10px}
 #md .mb{max-height:calc(100dvh - 20px);padding:18px 14px}
 }
+
+/* About page photo: prevent oversized portrait rendering on phones */
+@media (max-width: 760px) {
+  #va .ab2 {
+    display: grid !important;
+    grid-template-columns: minmax(0, 1fr) !important;
+    gap: 24px !important;
+    width: 100%;
+    max-width: 100%;
+    align-items: start;
+  }
+  #va .ab2 > div,
+  #va .ab2 > .rv {
+    min-width: 0 !important;
+    width: 100%;
+    max-width: 100%;
+  }
+  #va .ab2 #abp,
+  #va img#abp.abi {
+    display: block !important;
+    width: 100% !important;
+    max-width: 100% !important;
+    height: auto !important;
+    max-height: 300px !important;
+    aspect-ratio: 4 / 3 !important;
+    object-fit: cover !important;
+    object-position: center center !important;
+    border-radius: 18px !important;
+    box-sizing: border-box !important;
+  }
+  #va .ab2 h2 { overflow-wrap: break-word; }
+  #va .ab2 .two2 { grid-template-columns: minmax(0, 1fr); }
+}
+@media (max-width: 420px) {
+  #va .ab2 #abp,
+  #va img#abp.abi { max-height: 245px !important; }
+}
