@@ -1,0 +1,43 @@
+name: Apply mobile responsive fixes
+on:
+  workflow_dispatch:
+  push:
+    paths:
+      - '.github/workflows/mobile-responsive-fix.yml'
+permissions:
+  contents: write
+jobs:
+  patch-homepage:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout site
+        uses: actions/checkout@v4
+        with:
+          persist-credentials: true
+      - name: Link mobile CSS without replacing homepage
+        shell: bash
+        run: |
+          python3 - <<'PY'
+          from pathlib import Path
+          site=Path("index.html")
+          css=Path("mobile-fix.css")
+          if not site.is_file() or not css.is_file():
+              raise SystemExit("index.html or mobile-fix.css missing; no changes made")
+          html=site.read_text(encoding="utf-8")
+          marker='<link rel="stylesheet" href="mobile-fix.css?v=20261119" id="wn-mobile-fix">'
+          if not html.strip() or "</head>" not in html.lower():
+              raise SystemExit("Homepage is empty or missing </head>; no changes made")
+          import re
+          updated=re.sub(r'<link[^>]*id=["\\\']wn-mobile-fix["\\\'][^>]*>', '', html, flags=re.I)
+          updated=re.sub(r'</head>', marker+'\\n</head>', updated, count=1, flags=re.I)
+          if updated!=html: site.write_text(updated, encoding="utf-8")
+          PY
+      - name: Commit safe single-file patch
+        run: |
+          if ! git diff --quiet -- index.html; then
+            git config user.name "github-actions[bot]"
+            git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+            git add index.html
+            git commit -m "Apply mobile CSS to WebNextOnline homepage"
+            git push
+          fi
