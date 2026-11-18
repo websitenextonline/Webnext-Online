@@ -29,7 +29,7 @@ jobs:
           if not html.strip() or "</head>" not in html.lower():
               raise SystemExit("Homepage is empty or missing </head>; no changes made")
           import re
-          version='20261119-clean-hero-v54'
+          version='20261119-header-clearance-v55'
           marker=f'<link rel="stylesheet" href="mobile-fix.css?v={version}" id="wn-mobile-fix">'
           updated=re.sub(r'<link[^>]*id="wn-mobile-fix"[^>]*>', '', html, flags=re.I)
           updated=re.sub(r'</head>', lambda m: marker + chr(10) + m.group(0), updated, count=1, flags=re.I)
