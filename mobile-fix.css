@@ -172,3 +172,23 @@ html,body{max-width:100%;overflow-x:clip}
   #home.wh .wh-p { font-size: 14px !important; }
   #home.wh .wh-cols { height: 148px !important; margin: 18px 12px 0 !important; }
 }
+
+/* v55: mobile sticky-header clearance, preserve approved CTA and gallery */
+@media (max-width:760px) {
+  #home.wh {
+    padding-top: clamp(116px, 15vh, 142px) !important;
+    scroll-margin-top: 94px;
+  }
+  #home.wh .wh-kick {
+    position:relative !important;
+    z-index:2 !important;
+    opacity:1;
+    transform:none;
+    margin-top:0 !important;
+    white-space:normal !important;
+  }
+  #home.wh .wh-copy { overflow:visible !important; }
+}
+@media (max-width:390px) {
+  #home.wh { padding-top: 118px !important; }
+}
