@@ -95,61 +95,71 @@ html,body{max-width:100%;overflow-x:clip}
     font-size: 15px !important;
     line-height: 1.58 !important;
   }
+  /* Approved mobile CTAs: one authoritative rule-set */
   #home.wh .wh-btns {
-    display: flex !important;
-    flex-direction: column !important;
-    align-items: stretch !important;
-    flex-wrap: nowrap !important;
-    gap: 12px !important;
-    width: 100% !important;
-    margin: 0 !important;
-    box-sizing: border-box !important;
+    display:flex !important;
+    flex-direction:column !important;
+    flex-wrap:nowrap !important;
+    align-items:stretch !important;
+    width:100% !important;
+    margin:0 !important;
+    gap:12px !important;
+    box-sizing:border-box !important;
   }
   #home.wh .wh-btns > a.wh-b1,
   #home.wh .wh-btns > a.wh-b2 {
-    position: relative !important;
-    display: flex !important;
-    box-sizing: border-box !important;
-    width: 100% !important;
-    max-width: 100% !important;
-    min-width: 0 !important;
-    min-height: 54px !important;
-    margin: 0 !important;
-    padding: 12px 18px !important;
-    justify-content: center !important;
-    align-items: center !important;
-    text-align: center !important;
-    gap: 0 !important;
-    transform: none !important;
-    white-space: normal !important;
+    position:relative !important;
+    display:flex !important;
+    align-items:center !important;
+    justify-content:center !important;
+    width:100% !important;
+    max-width:100% !important;
+    min-width:0 !important;
+    min-height:54px !important;
+    padding:12px 18px !important;
+    margin:0 !important;
+    gap:0 !important;
+    box-sizing:border-box !important;
+    text-decoration:none !important;
+    text-align:center !important;
+    white-space:normal !important;
+    transform:none !important;
   }
   #home.wh .wh-btns > a.wh-b1 {
-    color: #fff !important;
-    background: #07263f !important;
-    border: none !important;
-    border-radius: 999px !important;
-    box-shadow: 0 14px 28px rgba(7,31,53,.14) !important;
+    background:#07263f !important;
+    color:white !important;
+    border:0 !important;
+    border-radius:999px !important;
+    box-shadow:0 14px 28px rgba(7,31,53,.14) !important;
   }
   #home.wh .wh-btns > a.wh-b2 {
-    color: #07263f !important;
-    background: transparent !important;
-    border: none !important;
-    border-radius: 0 !important;
-    box-shadow: none !important;
-    backdrop-filter: none !important;
+    background:transparent !important;
+    color:#07263f !important;
+    border:0 !important;
+    border-radius:0 !important;
+    box-shadow:none !important;
+    backdrop-filter:none !important;
   }
-  #home.wh .wh-btns > a > span.tx {
-    display: block !important;
-    position: static !important;
-    flex: 0 1 auto !important;
-    max-width: 100% !important;
-    text-align: center !important;
-    font-weight: 700 !important;
-    line-height: 1.3 !important;
-    white-space: normal !important;
-    transform: none !important;
+  #home.wh .wh-btns > a > .tx {
+    position:static !important;
+    display:block !important;
+    flex:0 1 auto !important;
+    max-width:100% !important;
+    font-weight:700 !important;
+    line-height:1.3 !important;
+    text-align:center !important;
+    color:inherit !important;
+    visibility:visible !important;
+    opacity:1 !important;
+    background:none !important;
+    white-space:normal !important;
+    transform:none !important;
   }
-  #home.wh .wh-btns > a > span.ci { display: none !important; }
+  #home.wh .wh-btns a .ci,
+  #home.wh .wh-btns a .ci svg {
+    display:none !important;
+    visibility:hidden !important;
+  }
   #home.wh .wh-cols {
     position: relative !important;
     inset: auto !important;
@@ -191,48 +201,4 @@ html,body{max-width:100%;overflow-x:clip}
 }
 @media (max-width:390px) {
   #home.wh { padding-top: 118px !important; }
-}
-
-/* v56: CTA-only final correction.
-   Do not modify size, layout, order, margins or position of either button. */
-@media (max-width:760px) {
-  #home.wh .wh-btns > a.wh-b1 {
-    background: #07263f !important;
-    color: #ffffff !important;
-    border: 0 !important;
-    border-radius: 999px !important;
-    text-decoration: none !important;
-  }
-  #home.wh .wh-btns > a.wh-b2 {
-    background: transparent !important;
-    color: #07263f !important;
-    border: 0 !important;
-    border-radius: 0 !important;
-    box-shadow: none !important;
-    backdrop-filter: none !important;
-    text-decoration: none !important;
-  }
-  #home.wh .wh-btns > a.wh-b1 > .tx,
-  #home.wh .wh-btns > a.wh-b2 > .tx {
-    color: inherit !important;
-    opacity: 1 !important;
-    visibility: visible !important;
-    text-decoration: none !important;
-    background-image: none !important;
-  }
-  #home.wh .wh-btns > a.wh-b1 > .ci,
-  #home.wh .wh-btns > a.wh-b2 > .ci {
-    display: none !important;
-    visibility: hidden !important;
-  }
-  #home.wh .wh-btns > a.wh-b1:hover,
-  #home.wh .wh-btns > a.wh-b1:focus {
-    background: #07263f !important;
-    color: #ffffff !important;
-  }
-  #home.wh .wh-btns > a.wh-b2:hover,
-  #home.wh .wh-btns > a.wh-b2:focus {
-    background: transparent !important;
-    color: #07263f !important;
-  }
 }
