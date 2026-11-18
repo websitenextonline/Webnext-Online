@@ -192,3 +192,47 @@ html,body{max-width:100%;overflow-x:clip}
 @media (max-width:390px) {
   #home.wh { padding-top: 118px !important; }
 }
+
+/* v56: CTA-only final correction.
+   Do not modify size, layout, order, margins or position of either button. */
+@media (max-width:760px) {
+  #home.wh .wh-btns > a.wh-b1 {
+    background: #07263f !important;
+    color: #ffffff !important;
+    border: 0 !important;
+    border-radius: 999px !important;
+    text-decoration: none !important;
+  }
+  #home.wh .wh-btns > a.wh-b2 {
+    background: transparent !important;
+    color: #07263f !important;
+    border: 0 !important;
+    border-radius: 0 !important;
+    box-shadow: none !important;
+    backdrop-filter: none !important;
+    text-decoration: none !important;
+  }
+  #home.wh .wh-btns > a.wh-b1 > .tx,
+  #home.wh .wh-btns > a.wh-b2 > .tx {
+    color: inherit !important;
+    opacity: 1 !important;
+    visibility: visible !important;
+    text-decoration: none !important;
+    background-image: none !important;
+  }
+  #home.wh .wh-btns > a.wh-b1 > .ci,
+  #home.wh .wh-btns > a.wh-b2 > .ci {
+    display: none !important;
+    visibility: hidden !important;
+  }
+  #home.wh .wh-btns > a.wh-b1:hover,
+  #home.wh .wh-btns > a.wh-b1:focus {
+    background: #07263f !important;
+    color: #ffffff !important;
+  }
+  #home.wh .wh-btns > a.wh-b2:hover,
+  #home.wh .wh-btns > a.wh-b2:focus {
+    background: transparent !important;
+    color: #07263f !important;
+  }
+}
