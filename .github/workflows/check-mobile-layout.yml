@@ -24,6 +24,9 @@ jobs:
           const {pathToFileURL}=require('node:url');
           const fs=require('node:fs');
           fs.mkdirSync('layout-screenshots',{recursive:true});
+          let html=fs.readFileSync('index.html','utf8').replace(/<style\\b[^>]*id="wn-mobile-fix-inline"[^>]*>[\\s\\S]*?<\/style>/gi,'');
+          html=html.replace('</head>','<style id="wn-mobile-fix-inline">'+fs.readFileSync('mobile-fix.css','utf8')+'</style></head>');
+          fs.writeFileSync('.layout-check.html',html);
           (async()=>{
             const browser=await chromium.launch({executablePath:'/usr/bin/google-chrome',headless:true});
             let failures=0;
@@ -31,7 +34,7 @@ jobs:
               const page=await browser.newPage({viewport:{width,height:844}});
               const errors=[];
               page.on('pageerror',e=>errors.push(e.message));
-              await page.goto(pathToFileURL(process.cwd()+'/index.html').href);
+              await page.goto(pathToFileURL(process.cwd()+'/.layout-check.html').href);
               for(const route of ['home','about','courses','portfolio','team','contact','try-live']){
                 await page.evaluate(r=>location.hash=r,route);
                 await page.waitForTimeout(350);
