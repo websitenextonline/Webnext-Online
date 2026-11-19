@@ -1,0 +1,60 @@
+name: Fix WebNextOnline team photos
+on:
+  push:
+    paths:
+      - '.github/workflows/fix-team-photos.yml'
+permissions:
+  contents: write
+jobs:
+  swap-team-photos:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          persist-credentials: true
+      - run: python -m pip install beautifulsoup4
+      - name: Swap Rehman and Talal image references
+        env:
+          FIX_SCRIPT: |
+            from pathlib import Path
+            from bs4 import BeautifulSoup
+            import re, subprocess, collections
+            p=Path("index.html")
+            html=p.read_text(encoding="utf-8")
+            soup=BeautifulSoup(html,"html.parser")
+            found={}
+            for who in ("rehman","talal"):
+                matches=[]
+                for node in soup.find_all(string=re.compile(r"\\b"+who+r"\\b",re.I)):
+                    if node.parent.name in ("style","script","title"): continue
+                    parent=node.parent
+                    for depth in range(7):
+                        if parent is None: break
+                        imgs=parent.find_all("img")
+                        if imgs and len(imgs)<=3:
+                            for img in imgs:
+                                src=img.get("src") or img.get("data-src")
+                                if src: matches.append((depth,src))
+                            break
+                        parent=parent.parent
+                if not matches: raise SystemExit("No nearby card image found for "+who)
+                nearest=min(x[0] for x in matches)
+                counts=collections.Counter(x[1] for x in matches if x[0]==nearest)
+                found[who]=counts.most_common(1)[0][0]
+                print(who,"candidates:",len(matches),"image length:",len(found[who]),"matches in HTML:",html.count(found[who]))
+            a,b=found["rehman"],found["talal"]
+            if a==b: raise SystemExit("Both names resolve to same image; unsafe to swap")
+            if not all(x.startswith(("data:image/","http","/","./","images/","assets/")) for x in (a,b)):
+                raise SystemExit("Image URLs not recognized; stopping")
+            if html.count(a)>15 or html.count(b)>15: raise SystemExit("Too many occurrences; stopping")
+            marker="___WEBNEXT_PHOTO_SWAP_TMP_91___"
+            if marker in html: raise SystemExit("Placeholder already present")
+            html=html.replace(a,marker).replace(b,a).replace(marker,b)
+            p.write_text(html,encoding="utf-8")
+            subprocess.run(["git","config","user.name","github-actions[bot]"],check=True)
+            subprocess.run(["git","config","user.email","41898282+github-actions[bot]@users.noreply.github.com"],check=True)
+            subprocess.run(["git","add","index.html"],check=True)
+            subprocess.run(["git","commit","-m","Fix swapped Rehman and Talal team photos"],check=True)
+            subprocess.run(["git","push"],check=True)
+            
+        run: python -c "$FIX_SCRIPT"
