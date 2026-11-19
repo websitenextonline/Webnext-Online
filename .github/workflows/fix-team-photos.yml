@@ -17,15 +17,24 @@ jobs:
         env:
           FIX_SCRIPT: |
             from pathlib import Path
-            import re
-            h=Path("index.html").read_text(encoding="utf-8")
-            print("Length",len(h))
-            for term in ("rehman","rahman","talal","team","meeting"):
-                m=list(re.finditer(term,h,re.I))
-                print(term,"count",len(m))
-                for a in m[:5]:
-                    around=h[max(0,a.start()-180):a.end()+180]
-                    around=re.sub(r"data:image/[^\"'<> ]+", "[EMBEDDED IMAGE]",around)
-                    print("CONTEXT",repr(around[:380]))
+            import re, subprocess
+            p=Path("index.html")
+            h=p.read_text(encoding="utf-8")
+            a=re.compile(r'(name:"Rehman"[^\n]{0,170}?photo:)IM\.t4')
+            b=re.compile(r'(name:"Talal"[^\n]{0,170}?photo:)IM\.t7')
+            if len(a.findall(h))!=1 or len(b.findall(h))!=1:
+                raise SystemExit("Team references not unique; refusing unsafe edit")
+            h=a.sub(r'\g<1>IM.t7',h)
+            h=b.sub(r'\g<1>IM.t4',h)
+            if h.count('"rehman":') != 1 or h.count('"talal":') != 1:
+                raise SystemExit("Named portrait keys are not unique; refusing unsafe edit")
+            h=h.replace('"rehman":','"__photo_key_temp__":').replace('"talal":','"rehman":').replace('"__photo_key_temp__":','"talal":')
+            p.write_text(h,encoding="utf-8")
+            subprocess.run(["git","config","user.name","github-actions[bot]"],check=True)
+            subprocess.run(["git","config","user.email","41898282+github-actions[bot]@users.noreply.github.com"],check=True)
+            subprocess.run(["git","add","index.html"],check=True)
+            subprocess.run(["git","commit","-m","Swap Rehman and Talal team portraits"],check=True)
+            subprocess.run(["git","push"],check=True)
+            print("Rehman and Talal photo mappings swapped successfully")
             
         run: python -c "$FIX_SCRIPT"
