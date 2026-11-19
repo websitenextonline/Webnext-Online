@@ -1,8 +1,5 @@
 /* Native transforms only; portraits retain their supplied file/name mapping. */
 (()=>{
-  // The lightweight glow cursor replaces the previous fluid smoke trail.
-  const smoke=document.getElementById('wn-motion-toggle');
-  if(smoke?.getAttribute('aria-pressed')==='true')smoke.click();
   const album=document.getElementById('wnTeamAlbum');
   if(!album)return;
   const stage=album.querySelector('.wn-album-stage');
