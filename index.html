@@ -621,6 +621,7 @@ nav{transition:background .3s,box-shadow .3s,color .3s}nav.tr{background:transpa
 
 
 
+
 <style id="wn-mobile-fix-inline">/* WebNextOnline mobile layout patch – 2026-11-19 */
 @media(max-width:760px){
 html,body{max-width:100%;overflow-x:clip}
@@ -970,6 +971,17 @@ html,body{max-width:100%;overflow-x:clip}
  .wn-gr-actions{width:100%}
  .wn-gr-actions a{flex:1 1 130px;text-align:center;font-size:12px;padding:10px}
 }
+
+#google-reviews .rr-widget{font-family:Poppins,system-ui,sans-serif;color:#071f35}
+#google-reviews .rr-layout-grid{grid-template-columns:repeat(3,minmax(0,1fr));gap:18px}
+#google-reviews .rr-review-card{min-width:0;background:#fbfdff;border:1px solid #e0e8f1;border-radius:18px;padding:22px 18px;box-shadow:0 8px 24px rgba(7,31,53,.04)}
+#google-reviews .rr-review-card .rr-review-text{color:#455c73;line-height:1.8;overflow-wrap:anywhere}
+#google-reviews .rr-review-card .rr-reviewer-name{color:#071f35;overflow-wrap:anywhere}
+#google-reviews .rr-business-name{color:#071f35;font-size:23px}
+#google-reviews .rr-business-address{font-size:12px;line-height:1.7;overflow-wrap:anywhere}
+#google-reviews .rr-read-more{color:#0f4c8a;font:600 12px Poppins,sans-serif;min-height:32px;cursor:pointer}
+@media(max-width:900px){#google-reviews .rr-layout-grid{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media(max-width:600px){#google-reviews .rr-layout-grid{grid-template-columns:minmax(0,1fr)}#google-reviews .rr-business-header-row{flex-wrap:wrap}#google-reviews .rr-business-name{flex-basis:100%;font-size:21px}#google-reviews .rr-review-card{padding:20px 16px}}
 </style>
 <div class="w">
 <div class="wn-gr-copy"><span class="kk">GOOGLE REVIEWS</span><h2 id="wn-google-reviews-heading">Your experience.<br><em>In your own words.</em></h2><p>Real feedback from our clients and students, connected directly to our Google business profile.</p></div>
