@@ -1,0 +1,64 @@
+name: Check responsive layouts
+on:
+  workflow_dispatch:
+  push:
+    paths:
+      - '.github/workflows/check-mobile-layout.yml'
+      - 'index.html'
+permissions:
+  contents: read
+jobs:
+  check:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Install browser test dependency in temporary directory
+        run: npm install --prefix "$RUNNER_TEMP/wn-layout" playwright
+      - name: Verify mobile routes and course controls
+        env:
+          NODE_PATH: ${{ runner.temp }}/wn-layout/node_modules
+        run: |
+          node <<'JS'
+          const {chromium}=require('playwright');
+          const {pathToFileURL}=require('node:url');
+          (async()=>{
+            const browser=await chromium.launch({executablePath:'/usr/bin/google-chrome',headless:true});
+            let failures=0;
+            for(const width of [360,390,430,760,1366]){
+              const page=await browser.newPage({viewport:{width,height:844}});
+              const errors=[];
+              page.on('pageerror',e=>errors.push(e.message));
+              await page.goto(pathToFileURL(process.cwd()+'/index.html').href);
+              for(const route of ['home','about','courses','portfolio','team','contact','try-live']){
+                await page.evaluate(r=>location.hash=r,route);
+                await page.waitForTimeout(350);
+                const sizes=await page.evaluate(()=>({
+                  viewport:innerWidth,
+                  document:document.documentElement.scrollWidth,
+                  body:document.body.scrollWidth,
+                  footer:document.querySelector('.ft').getBoundingClientRect().width,
+                  aboutImage:document.querySelector('#abp').getBoundingClientRect().width,
+                  footerColumns:getComputedStyle(document.querySelector('.ft .fb')).gridTemplateColumns,
+                  aboutColumns:getComputedStyle(document.querySelector('#va .ab2')).gridTemplateColumns,
+                  horizontalOverflow:[...document.querySelectorAll('body *')].filter(e=>{
+                    const r=e.getBoundingClientRect();
+                    return r.width>0&&(r.right>innerWidth+2||r.left< -2)&&!e.closest('#cf,.wh-cols,.tk,.cl,.hs');
+                  }).slice(0,8).map(e=>({id:e.id,cls:e.className,width:Math.round(e.getBoundingClientRect().width)}))
+                }));
+                console.log(JSON.stringify({width,route,...sizes}));
+                if(width<=760&&(sizes.document>width+1||sizes.body>width+1||sizes.footer>width+1)) failures++;
+                if(width<=760&&route==='about'&&sizes.aboutImage>width-30)failures++;
+              }
+              await page.evaluate(()=>location.hash='home');
+              await page.waitForTimeout(350);
+              await page.locator('#nx').click();
+              await page.locator('#cf .ci.on .v').click();
+              if(!await page.locator('#md').isVisible())failures++;
+              console.log('PAGE_ERRORS',width,JSON.stringify(errors));
+              if(errors.length)failures++;
+              await page.close();
+            }
+            await browser.close();
+            if(failures)throw Error(failures+' responsive checks failed');
+          })().catch(e=>{console.error(e);process.exit(1)});
+          JS
