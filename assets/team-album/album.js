@@ -9,7 +9,8 @@
   const status=album.querySelector('.wn-album-status');
   const live=album.querySelector('.wn-album-sr');
   const reduce=matchMedia('(prefers-reduced-motion: reduce)');
-  let active=0,timer,visible=false,hover=false,focused=false,paused=false,pointer=null,suppressClick=false;
+  const opening=Math.max(0,cards.findIndex(card=>card.querySelector('h3').textContent.trim()==='Hamza'));
+  let active=opening,timer,visible=false,hover=false,focused=false,paused=false,pointer=null,suppressClick=false;
   function schedule(){
     clearTimeout(timer);
     const stopped=paused||reduce.matches;
@@ -22,21 +23,25 @@
   }
   function show(index,announce=false){
     active=(index+cards.length)%cards.length;
-    const step=parseFloat(getComputedStyle(album).getPropertyValue('--album-step'));
+    const styles=getComputedStyle(album);
+    const sides=Number(styles.getPropertyValue('--album-sides'));
+    const wide=sides===3;
+    const step=wide?Math.max(95,Math.min(200,(album.clientWidth-280)/4.2)):parseFloat(styles.getPropertyValue('--album-step'));
     cards.forEach((card,i)=>{
       let d=(i-active+cards.length)%cards.length;
       if(d>cards.length/2)d-=cards.length;
       const distance=Math.abs(d),old=Number(card.dataset.distance??9);
       // The wrap takes place behind the visible stack, never across its front.
-      card.style.transition=(old>2&&distance>2)?'none':'';
-      const x=d===0?0:Math.sign(d)*(distance===1?step:step*1.73+(distance-2)*60);
-      card.style.transform=`translate3d(${x}px,${distance*10}px,${-distance*85}px) rotateY(${d===0?0:-Math.sign(d)*18}deg) scale(${distance===0?1:distance===1?.87:.71})`;
-      card.style.opacity=distance===0?'1':distance===1?'.82':distance===2?'.45':'0';
+      card.style.transition=(old>sides&&distance>sides)?'none':'';
+      const x=d===0?0:Math.sign(d)*(wide?step*([0,1,1.85,2.55,3.1][distance]):(distance===1?step:step*1.73+(distance-2)*60));
+      const scale=wide?[1,.86,.71,.57,.5][distance]:(distance===0?1:distance===1?.87:.71);
+      card.style.transform=`translate3d(${x}px,${distance*10}px,${-distance*(wide?30:85)}px) rotateY(${d===0?0:-Math.sign(d)*18}deg) scale(${scale})`;
+      card.style.opacity=distance>sides?'0':distance===0?'1':distance===1?'.92':distance===2?'.76':'.58';
       card.style.zIndex=String(10-distance);
-      card.style.pointerEvents=distance<=2?'auto':'none';
+      card.style.pointerEvents=distance<=sides?'auto':'none';
       card.dataset.distance=distance;
       card.setAttribute('aria-hidden',String(i!==active));
-      if(distance<=2)card.querySelector('img').loading='eager';
+      if(distance<=sides)card.querySelector('img').loading='eager';
     });
     dots.forEach((dot,i)=>dot.setAttribute('aria-current',String(i===active)));
     const name=cards[active].querySelector('h3').textContent;
@@ -79,5 +84,6 @@
   reduce.addEventListener('change',schedule);
   new ResizeObserver(()=>show(active)).observe(album);
   new IntersectionObserver(entries=>{visible=entries[0].isIntersecting;schedule()},{threshold:.2}).observe(album);
-  show(0);
+  window.addEventListener('hashchange',()=>{if(location.hash==='#team')show(opening)});
+  show(opening);
 })();

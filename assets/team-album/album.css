@@ -1,5 +1,5 @@
 /* Scoped to the existing Meet the Team album. */
-.wn-album{--album-width:280px;--album-step:212px;position:relative;isolation:isolate;margin:28px auto 0;padding:12px 0 24px;max-width:1100px;overflow:hidden;border-radius:24px;background:radial-gradient(ellipse at 50% 44%,#00b8f514,transparent 67%)}
+.wn-album{--album-sides:3;--album-width:280px;--album-step:212px;position:relative;isolation:isolate;margin:28px auto 0;padding:12px 0 24px;max-width:1100px;overflow:hidden;border-radius:24px;background:radial-gradient(ellipse at 50% 44%,#00b8f514,transparent 67%)}
 .wn-album-stage{position:relative;height:560px;perspective:1400px;touch-action:pan-y;user-select:none;outline-offset:-4px}
 .wn-album-card{position:absolute;top:24px;left:50%;width:var(--album-width);margin:0 0 0 calc(var(--album-width) / -2);overflow:hidden;border:1px solid var(--ln);border-radius:18px;background:var(--n);box-shadow:0 18px 40px #071f3529;transition:transform .8s cubic-bezier(.22,.68,.16,1),opacity .65s,border-color .65s;backface-visibility:hidden;will-change:transform,opacity}
 .wn-album-card img{display:block;width:100%;height:420px;object-fit:contain;background:#06292e;pointer-events:none}
@@ -7,7 +7,7 @@
 .wn-album-caption h3{font:600 19px/1.3 Poppins,system-ui,sans-serif;letter-spacing:-.02em;color:#fff}
 .wn-album-caption p{font-size:12px;line-height:1.5;margin:5px auto 0;color:#d4e5f4;max-width:240px}
 .wn-album-card[data-distance="0"]{border-color:var(--c);box-shadow:0 20px 46px #071f3538,0 0 0 1px var(--c)}
-.wn-album-card[data-distance="1"],.wn-album-card[data-distance="2"]{cursor:pointer}
+.wn-album-card[data-distance="1"],.wn-album-card[data-distance="2"],.wn-album-card[data-distance="3"]{cursor:pointer}
 .wn-album-controls{display:flex;align-items:center;justify-content:center;gap:14px;padding:0 12px;flex-wrap:wrap}
 .wn-album-arrow,.wn-album-toggle{display:grid;place-items:center;min-width:44px;height:44px;padding:0;border:1px solid var(--ln);border-radius:50%;background:#fff;color:var(--d);box-shadow:0 4px 12px #071f350a}
 .wn-album-arrow{font-size:27px;line-height:1}
@@ -20,6 +20,7 @@
 .wn-album-dot[aria-current="true"]::after{width:19px;background:var(--d)}
 .wn-album-status{text-align:center;margin:13px 0 0;font-size:12px;color:var(--m)}
 .wn-album-sr{position:absolute;width:1px;height:1px;overflow:hidden;clip-path:inset(50%);white-space:nowrap}
+@media(max-width:900px){.wn-album{--album-sides:2}}
 @media(max-width:620px){.wn-album{--album-width:230px;--album-step:146px;margin-top:20px;border-radius:16px}.wn-album-stage{height:490px}.wn-album-card{top:20px;border-radius:15px}.wn-album-card img{height:345px}.wn-album-caption{min-height:104px;padding:12px}.wn-album-caption h3{font-size:18px}.wn-album-controls{gap:7px}.wn-album-dot{width:21px}.wn-album-arrow,.wn-album-toggle{min-width:40px;height:40px}}
 @media(max-width:360px){.wn-album{--album-width:208px;--album-step:126px}.wn-album-stage{height:462px}.wn-album-card img{height:312px}.wn-album-controls{gap:4px}.wn-album-dot{width:18px}}
 @media(prefers-reduced-motion:reduce){.wn-album-card,.wn-album-dot::after{transition:none!important}}
