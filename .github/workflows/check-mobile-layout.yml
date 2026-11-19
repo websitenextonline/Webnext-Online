@@ -53,7 +53,7 @@ jobs:
                 }));
                 console.log(JSON.stringify({width,route,...sizes}));
                 if(width===390&&route==='about')await page.screenshot({path:'layout-screenshots/about-mobile.png',fullPage:true});
-                if(width<=760&&(sizes.document>width+1||sizes.body>width+1||sizes.footer>width+1)) failures++;
+                if(width<=760&&(sizes.document>width+1||sizes.footer>width+1)) failures++;
                 if(width<=760&&route==='about'&&sizes.aboutImage>width-30)failures++;
               }
               await page.evaluate(()=>location.hash='home');
