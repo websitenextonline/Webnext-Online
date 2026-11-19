@@ -5,6 +5,7 @@ on:
     paths:
       - '.github/workflows/check-mobile-layout.yml'
       - 'index.html'
+      - 'mobile-fix.css'
 permissions:
   contents: read
 jobs:
@@ -21,6 +22,8 @@ jobs:
           node <<'JS'
           const {chromium}=require('playwright');
           const {pathToFileURL}=require('node:url');
+          const fs=require('node:fs');
+          fs.mkdirSync('layout-screenshots',{recursive:true});
           (async()=>{
             const browser=await chromium.launch({executablePath:'/usr/bin/google-chrome',headless:true});
             let failures=0;
@@ -46,11 +49,18 @@ jobs:
                   }).slice(0,8).map(e=>({id:e.id,cls:e.className,width:Math.round(e.getBoundingClientRect().width)}))
                 }));
                 console.log(JSON.stringify({width,route,...sizes}));
+                if(width===390&&route==='about')await page.screenshot({path:'layout-screenshots/about-mobile.png',fullPage:true});
                 if(width<=760&&(sizes.document>width+1||sizes.body>width+1||sizes.footer>width+1)) failures++;
                 if(width<=760&&route==='about'&&sizes.aboutImage>width-30)failures++;
               }
               await page.evaluate(()=>location.hash='home');
               await page.waitForTimeout(350);
+              if(width===390){
+                await page.locator('#hs-courses').scrollIntoViewIfNeeded();
+                await page.screenshot({path:'layout-screenshots/courses-mobile.png'});
+                await page.locator('.ft .fb').scrollIntoViewIfNeeded();
+                await page.screenshot({path:'layout-screenshots/footer-mobile.png'});
+              }
               await page.locator('#nx').click();
               await page.locator('#cf .ci.on .v').click();
               if(!await page.locator('#md').isVisible())failures++;
@@ -62,3 +72,10 @@ jobs:
             if(failures)throw Error(failures+' responsive checks failed');
           })().catch(e=>{console.error(e);process.exit(1)});
           JS
+      - name: Save mobile visual checks
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: mobile-layout-screenshots
+          path: layout-screenshots/
+          retention-days: 7
