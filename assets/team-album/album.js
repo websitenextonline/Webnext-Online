@@ -1,5 +1,8 @@
 /* Native transforms only; portraits retain their supplied file/name mapping. */
 (()=>{
+  // The lightweight glow cursor replaces the previous fluid smoke trail.
+  const smoke=document.getElementById('wn-motion-toggle');
+  if(smoke?.getAttribute('aria-pressed')==='true')smoke.click();
   const album=document.getElementById('wnTeamAlbum');
   if(!album)return;
   const stage=album.querySelector('.wn-album-stage');
@@ -19,7 +22,7 @@
     toggle.setAttribute('aria-pressed',String(!stopped));
     toggle.disabled=reduce.matches;
     toggle.title=reduce.matches?'Autoplay disabled by your reduced motion preference':'';
-    if(!stopped&&!document.hidden&&visible&&!hover&&!focused&&!pointer)timer=setTimeout(()=>show(active+1),3000);
+    if(!stopped&&!document.hidden&&visible&&!hover&&!focused&&!pointer)timer=setTimeout(()=>show(active+1),10000);
   }
   function show(index,announce=false){
     active=(index+cards.length)%cards.length;
