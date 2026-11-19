@@ -278,3 +278,6 @@ html,body{max-width:100%;overflow-x:clip}
 @media(min-width:901px){
  #va .ab2{grid-template-columns:minmax(0,1fr) minmax(0,1.1fr)}
 }
+
+/* Decorative circles stay inside the Why Choose Us section. */
+.edge.wn-edge{position:relative;overflow:clip}
