@@ -281,3 +281,5 @@ html,body{max-width:100%;overflow-x:clip}
 
 /* Decorative circles stay inside the Why Choose Us section. */
 .edge.wn-edge{position:relative;overflow:clip}
+
+@media(max-width:760px){#wn-motion-toggle,#wn-flame-canvas,#wn-flame-cursor{display:none!important}}
