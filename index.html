@@ -615,6 +615,7 @@ nav{transition:background .3s,box-shadow .3s,color .3s}nav.tr{background:transpa
   #home.wh .wh-btns > a .tx { font-size:clamp(13px,3.8vw,16px) !important; }
 }
 </style>
+
 <style id="wn-mobile-fix-inline">/* WebNextOnline mobile layout patch – 2026-11-19 */
 @media(max-width:760px){
 html,body{max-width:100%;overflow-x:clip}
@@ -875,6 +876,25 @@ html,body{max-width:100%;overflow-x:clip}
 @media(min-width:420px) and (max-width:760px){
  .ft .fb{grid-template-columns:repeat(2,minmax(0,1fr))!important}
  .ft .fb>div:first-child,.ft .fb>div:last-child{grid-column:1/-1}
+}
+
+/* Prevent off-screen timeline entrance effects from expanding the mobile canvas. */
+@media(max-width:760px){
+ #ig.wn-tl{width:100%;max-width:100%;min-width:0;margin-top:32px;overflow:clip}
+ #ig .wn-tl-item{display:grid!important;grid-template-columns:48px minmax(0,1fr)!important;column-gap:12px;width:100%;min-width:0;padding:14px 0}
+ #ig .wn-tl-node{grid-column:1!important;width:42px;height:42px}
+ #ig .wn-tl-line{left:24px}
+ #ig .wn-tl-card,#ig.js .wn-tl-item .wn-tl-card{grid-column:2!important;width:100%;min-width:0;max-width:100%;padding:20px 16px;transform:none!important;opacity:1!important;text-align:left}
+ #ig .wn-tl-card b{font-size:18px;overflow-wrap:break-word}
+ #ig .wn-tl-card p{font-size:13px}
+ #ig .wn-tl-item.l b:after{margin-left:0}
+ #ig .wn-tl-cta{width:100%;min-width:0;padding:24px 20px}
+ #hs-courses .ci .rw{padding:0}
+}
+#va .ab2>div{min-width:0}
+#va img.abi{display:block;width:100%;max-width:100%;height:auto;border-radius:20px}
+@media(min-width:901px){
+ #va .ab2{grid-template-columns:minmax(0,1fr) minmax(0,1.1fr)}
 }
 </style>
 </head><body>
