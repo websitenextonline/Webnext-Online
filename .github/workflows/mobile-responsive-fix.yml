@@ -6,6 +6,7 @@ on:
       - '.github/workflows/mobile-responsive-fix.yml'
       - 'mobile-fix.css'
       - 'index.html'
+      - '.github/site-sections/google-reviews.html'
 permissions:
   contents: write
 concurrency:
@@ -32,6 +33,13 @@ jobs:
           updated=re.sub(r'<style\b[^>]*\bid="wn-mobile-fix-inline"[^>]*>.*?</style>', '', updated, flags=re.I|re.S)
           marker='<style id="wn-mobile-fix-inline">'+css.read_text(encoding='utf-8')+'</style>'
           updated=re.sub(r'</head>', lambda m: marker+'\n'+m.group(0), updated, count=1, flags=re.I)
+          fragment=Path('.github/site-sections/google-reviews.html')
+          if fragment.is_file():
+              updated=re.sub(r'<!-- wn-google-reviews:start -->.*?<!-- wn-google-reviews:end -->\\s*', '', updated, flags=re.S)
+              anchor='<section id="hs-courses">'
+              if anchor not in updated:
+                  raise SystemExit('Homepage course section missing; no changes made')
+              updated=updated.replace(anchor,fragment.read_text(encoding='utf-8')+'\\n'+anchor,1)
           if updated!=html:
               site.write_text(updated, encoding='utf-8')
           PY
@@ -41,7 +49,7 @@ jobs:
             git config user.name "github-actions[bot]"
             git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
             git add index.html
-            git commit -m "Fix mobile width, course cards, About image and footer"
+            git commit -m "Apply homepage sections and responsive styles"
             git pull --rebase origin main
             git push
           fi
