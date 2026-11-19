@@ -60,8 +60,10 @@ jobs:
               await page.waitForTimeout(350);
               if(width===390){
                 await page.locator('#hs-courses').scrollIntoViewIfNeeded();
+                await page.waitForTimeout(1000);
                 await page.screenshot({path:'layout-screenshots/courses-mobile.png'});
                 await page.locator('.ft .fb').scrollIntoViewIfNeeded();
+                await page.waitForTimeout(700);
                 await page.screenshot({path:'layout-screenshots/footer-mobile.png'});
               }
               await page.locator('#nx').click();
