@@ -37,6 +37,7 @@ jobs:
           if fragment.is_file():
               updated=re.sub(r'<!-- wn-google-reviews:start -->.*?<!-- wn-google-reviews:end -->\s*', '', updated, flags=re.S)
               anchor='<section id="hs-courses">'
+              updated=updated.replace(chr(92)+'n'+anchor,anchor)
               if anchor not in updated:
                   raise SystemExit('Homepage course section missing; no changes made')
               updated=updated.replace(anchor,fragment.read_text(encoding='utf-8')+'\n'+anchor,1)
