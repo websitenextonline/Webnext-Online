@@ -25,7 +25,7 @@ jobs:
             found={}
             for who in ("rehman","talal"):
                 matches=[]
-                for node in soup.find_all(string=re.compile(r"\\b"+who+r"\\b",re.I)):
+                for node in soup.find_all(string=re.compile(r"\b"+who+r"\b",re.I)):
                     if node.parent.name in ("style","script","title"): continue
                     parent=node.parent
                     for depth in range(7):
