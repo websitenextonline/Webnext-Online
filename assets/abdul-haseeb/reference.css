@@ -7,3 +7,4 @@
 @media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}*,*:before,*:after{transition:none!important;animation:none!important}}
 /* Blend the supplied brand details naturally into the reference palette. */
 .hc-brand,.signature{mix-blend-mode:multiply}.hero-wave{mask-image:linear-gradient(to bottom,#000 76%,transparent 100%)}.contact-wave{mask-image:linear-gradient(90deg,#000 85%,transparent 100%)}
+.signature-art{filter:contrast(1.45) brightness(1.08)}
