@@ -91,7 +91,7 @@
 
 /* Open Abdul Haseeb's full portfolio from the team album and desk. */
 (()=>{
- const url='abdul-haseeb.html';
+ const url='/abdul-haseeb/';
  const style=document.createElement('style');
  style.textContent='.wn-album-stage{height:615px}@media(max-width:620px){.wn-album-stage{height:545px}}@media(max-width:360px){.wn-album-stage{height:517px}}.wn-haseeb-portfolio{display:inline-flex!important;align-items:center;justify-content:center;padding:9px 14px!important;margin-top:12px!important;border-radius:7px;background:#fff!important;color:#064d91!important;font:600 14px/1.2 Inter,Arial,sans-serif!important;letter-spacing:0;text-decoration:none;position:relative;z-index:2;min-height:38px}.wn-haseeb-portfolio:hover{background:#dceeff!important}.wn-haseeb-portfolio:focus-visible{outline:3px solid #54bbff;outline-offset:3px}.wn-album-caption:has(.wn-haseeb-portfolio){padding-bottom:18px}.pol .pb .wn-haseeb-portfolio{background:#0869cc!important;color:#fff!important;font-size:12px!important;margin-top:10px!important;padding:8px 10px!important}.wn-haseeb-team-link{display:flex;align-items:center;justify-content:space-between;gap:24px;margin:28px 0 20px;padding:25px 30px;border:1px solid #c6dff0;border-radius:14px;background:linear-gradient(110deg,#f3f9ff,#e4f2ff);color:#082345}.wn-haseeb-team-link strong{display:block;font-size:19px;line-height:1.3}.wn-haseeb-team-link p{margin:7px 0 0;font-size:14px;color:#526d85}.wn-haseeb-team-link a{background:#0869cc!important;color:#fff!important;margin:0!important;white-space:nowrap}@media(max-width:580px){.wn-haseeb-team-link{flex-direction:column;align-items:flex-start;padding:23px;gap:18px}.wn-haseeb-team-link strong{font-size:18px}}';
  document.head.appendChild(style);
@@ -104,7 +104,7 @@
 
 /* Hamza Farooq: dedicated portfolio from the CEO and opening album card. */
 (()=>{
- const url='hamza-farooq.html';
+ const url='/hamza-farooq/';
  const style=document.createElement('style');
  style.textContent='#ceo .hf-profile-actions{display:flex;gap:12px;flex-wrap:wrap;align-items:center}#ceo .hf-ceo-portfolio{background:#076cb4;color:#fff;border-color:#076cb4}#ceo .hf-ceo-portfolio:hover{background:#07558d}';
  document.head.appendChild(style);
