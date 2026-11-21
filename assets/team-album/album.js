@@ -101,3 +101,17 @@
  const album=document.getElementById('wnTeamAlbum');
  if(album){const promo=document.createElement('div');promo.className='wn-haseeb-team-link';promo.innerHTML='<div><strong>Abdul Haseeb · Web Designer &amp; Motion Creator</strong><p>Explore the full Haseeb Crafts portfolio, selected work and creative toolkit.</p></div>';addLink(promo);album.insertAdjacentElement('afterend',promo)}
 })();
+
+/* Hamza Farooq: dedicated portfolio from the CEO and opening album card. */
+(()=>{
+ const url='hamza-farooq.html';
+ const style=document.createElement('style');
+ style.textContent='#ceo .hf-profile-actions{display:flex;gap:12px;flex-wrap:wrap;align-items:center}#ceo .hf-ceo-portfolio{background:#076cb4;color:#fff;border-color:#076cb4}#ceo .hf-ceo-portfolio:hover{background:#07558d}';
+ document.head.appendChild(style);
+ function link(className){const a=document.createElement('a');a.href=url;a.className=className;a.textContent='View Portfolio';a.setAttribute('aria-label','View Hamza Farooq’s full portfolio');a.addEventListener('pointerdown',e=>e.stopPropagation());a.addEventListener('click',e=>e.stopPropagation());return a}
+ const info=document.querySelector('#ceo .inf');
+ if(info){const actions=info.lastElementChild;actions.classList.add('hf-profile-actions');actions.prepend(link('btn bp hf-ceo-portfolio'))}
+ const cards=[...document.querySelectorAll('.wn-album-card')];
+ const card=cards.find(c=>/^Hamza(?: Farooq)?$/.test(c.querySelector('h3')?.textContent.trim()||''));
+ if(card){const a=link('wn-haseeb-portfolio');a.tabIndex=card.getAttribute('aria-hidden')==='true'?-1:0;card.querySelector('.wn-album-caption').appendChild(a)}
+})();
