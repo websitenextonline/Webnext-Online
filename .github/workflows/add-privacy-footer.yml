@@ -1,0 +1,40 @@
+name: Add privacy policy footer link
+on:
+  push:
+    paths:
+      - '.github/workflows/add-privacy-footer.yml'
+permissions:
+  contents: write
+concurrency:
+  group: webnext-privacy-footer
+  cancel-in-progress: false
+jobs:
+  link-policy:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Add only the privacy policy footer link
+        run: |
+          python3 - <<'PYTHON'
+          from pathlib import Path
+          page=Path('index.html')
+          html=page.read_text()
+          start=html.index('<footer')
+          end=html.index('</footer>',start)
+          footer=html[start:end]
+          anchor='<span>© 2026 WebNextOnline. All rights reserved.</span>'
+          link='<a href="/privacy-policy/" style="color:inherit;text-decoration:underline;text-underline-offset:3px">Privacy Policy</a>'
+          if 'href="/privacy-policy/"' not in footer:
+              assert footer.count(anchor)==1, 'Expected footer anchor missing'
+              page.write_text(html[:start]+footer.replace(anchor,anchor+link)+html[end:])
+          PYTHON
+      - name: Publish footer link
+        run: |
+          if ! git diff --quiet -- index.html; then
+            git config user.name 'github-actions[bot]'
+            git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+            git add index.html
+            git commit -m 'Link website privacy policy in footer'
+            git pull --rebase origin main
+            git push
+          fi
