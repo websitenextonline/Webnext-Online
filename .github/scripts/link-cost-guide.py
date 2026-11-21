@@ -4,9 +4,14 @@ r=Path('.')
 # Keep the existing homepage intact apart from discoverability and a calculator deep link.
 p=r/'index.html';s=p.read_text()
 if 'function openToolFromURL()' in s:
- print('Cost guide already linked.');raise SystemExit(0)
+ s=s.replace('?tool=cost#try-live','?tool=cost#try-live')
+ s=s.replace("if(!tools.some(t=>t[0]===key))return;select(key);","if(location.hash!=='#try-live'||!tools.some(t=>t[0]===key))return;select(key);")
+ if 'function syncCostGuideCard()' not in s:
+  s=s.replace("addEventListener('popstate',openToolFromURL);","addEventListener('popstate',openToolFromURL);addEventListener('hashchange',openToolFromURL);function syncCostGuideCard(){const g=document.getElementById('guides');if(g)g.hidden=!!(location.hash&&!['#home','#guides',''].includes(location.hash))}syncCostGuideCard();addEventListener('hashchange',syncCostGuideCard);")
+ p.write_text(s)
+ print('Fixed calculator route and guide-card visibility.');raise SystemExit(0)
 match=re.search(r'<section[^>]+id="wn-faq"[^>]*>',s);assert match
-card='''<section id="guides" style="background:#f4f8fd;border-top:1px solid #e3eaf3"><div class="w ct"><p class="kk">PRACTICAL WEBSITE GUIDE</p><h2>Plan your website. <em>Know your budget.</em></h2><p>Pakistan mein website ka kharcha kaise calculate karein? Pages, features aur recurring costs ko Roman Urdu mein samjhein. Calculator values examples hain, final quotation nahi.</p><div style="display:flex;justify-content:center;gap:12px;flex-wrap:wrap;margin-top:24px"><a class="btn bp" href="/guides/website-cost-pakistan/">Read the website cost guide</a><a class="btn bg" href="/?tool=cost#wnStudio">Try the Cost Calculator</a></div></div></section>\n'''
+card='''<section id="guides" style="background:#f4f8fd;border-top:1px solid #e3eaf3"><div class="w ct"><p class="kk">PRACTICAL WEBSITE GUIDE</p><h2>Plan your website. <em>Know your budget.</em></h2><p>Pakistan mein website ka kharcha kaise calculate karein? Pages, features aur recurring costs ko Roman Urdu mein samjhein. Calculator values examples hain, final quotation nahi.</p><div style="display:flex;justify-content:center;gap:12px;flex-wrap:wrap;margin-top:24px"><a class="btn bp" href="/guides/website-cost-pakistan/">Read the website cost guide</a><a class="btn bg" href="/?tool=cost#try-live">Try the Cost Calculator</a></div></div></section>\n'''
 s=s[:match.start()]+card+s[match.start():]
 s=s.replace('<h4>EXPLORE</h4>','<h4>EXPLORE</h4><a href="/guides/website-cost-pakistan/">Website cost guide</a>',1)
 s=s.replace('<script id="wn-studio-script">','<script src="/assets/website-pricing.js?v=20261122"></script><script id="wn-studio-script">',1)
