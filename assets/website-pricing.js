@@ -1,0 +1,2 @@
+/* Example estimates shared by the guide; match the Creative Studio calculator. */
+window.WN_WEBSITE_PRICING=Object.freeze({rates:Object.freeze({base:18000,page:2500,commerce:22000,booking:12000,motion:9000,seo:7000,crm:16000,copy:5000}),features:Object.freeze([['commerce','Ecommerce and payment setup'],['booking','Booking / reservations'],['motion','Custom motion graphics'],['seo','Basic SEO configuration'],['crm','CRM / lead management'],['copy','Copywriting help']])});
