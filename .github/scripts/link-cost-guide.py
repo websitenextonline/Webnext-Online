@@ -3,6 +3,11 @@ import re
 r=Path('.')
 # Keep the existing homepage intact apart from discoverability and a calculator deep link.
 p=r/'index.html';s=p.read_text()
+if '/project-calculator/' not in s:
+ s=s.replace('<h4>EXPLORE</h4>','<h4>EXPLORE</h4><a href="/project-calculator/">Project Calculator</a>',1)
+ s=s.replace('href="/?tool=cost#try-live">Try the Cost Calculator','href="/project-calculator/">Open Project Calculator',1)
+ s=s.replace('Read the website cost guide</a>.</div>','Read the website cost guide</a>. <a href="/project-calculator/">Get a guided project plan</a>.</div>',1)
+
 if 'function openToolFromURL()' in s:
  s=s.replace('?tool=cost#try-live','?tool=cost#try-live')
  s=s.replace("if(!tools.some(t=>t[0]===key))return;select(key);","if(location.hash!=='#try-live'||!tools.some(t=>t[0]===key))return;select(key);")
