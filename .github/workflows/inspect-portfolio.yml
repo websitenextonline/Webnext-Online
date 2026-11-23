@@ -19,7 +19,7 @@ jobs:
           import re
           s=Path('index.html').read_text('utf-8')
           print('FILE_SIZE',len(s),'LINE_COUNT',s.count('\\n'))
-          for term in ['Consulting website','Watch e-commerce','SaaS product site','Work that','Search projects','All 9','Portfolio','View concept']:
+          for term in ['const PC=', 'let PC=', 'WN_PORTFOLIO_IMAGES=', 'function rpf(', 'let pf=', 'portfolioQuery', 'window.addEventListener']:
               print('\\nTERM',term,'OCCURRENCES',s.lower().count(term.lower()))
               i=s.lower().find(term.lower())
               if i>=0:
