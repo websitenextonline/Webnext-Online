@@ -45,7 +45,16 @@ function init(){
  let search=document.querySelector("#wn-p-search"),pager=document.querySelector("#wn-pagination");
  if(search){const clone=search.cloneNode(true);search.replaceWith(clone);search=clone}
  if(pager){const clone=pager.cloneNode(false);pager.replaceWith(clone);pager=clone}
- if(!pager){pager=document.createElement("div");pager.id="wn-pagination";pager.className="wn-pages";grid.after(pager)}
+ if(!pager){pager=document.createElement("div");pager.id="wn-pagination";pager.className="wn-pages"}
+ // Keep search and category filters above; pagination belongs after all visible cards.
+ grid.after(pager);
+ pager.setAttribute("aria-label","Portfolio page navigation");
+ if(!document.getElementById("wn-pagination-bottom-style")){
+   const style=document.createElement("style");
+   style.id="wn-pagination-bottom-style";
+   style.textContent="#vp #wn-pagination{display:flex!important;justify-content:center;align-items:center;flex-wrap:wrap;gap:8px;margin:36px auto 48px!important;padding:0 12px;width:100%;position:static!important;float:none!important}#vp #wn-pagination button{min-width:40px;cursor:pointer}#vp #wn-pagination button:disabled{cursor:default;opacity:.4}@media(max-width:600px){#vp #wn-pagination{gap:6px;margin:24px auto 34px!important}#vp #wn-pagination button{min-width:35px}}";
+   document.head.append(style);
+ }
  const types=["All","Websites","WordPress","E-commerce","Creative"];
  const grouped=PROJECTS.map(p=>({...p,type:typeOf(p)}));
  function button(text,onClick,selected,disabled){const el=document.createElement("button");el.type="button";el.textContent=text;if(selected){el.className="on current";el.setAttribute("aria-current","page")}el.disabled=!!disabled;el.addEventListener("click",onClick);return el}
