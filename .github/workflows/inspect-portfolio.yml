@@ -23,5 +23,5 @@ jobs:
               print('\\nTERM',term,'OCCURRENCES',s.lower().count(term.lower()))
               i=s.lower().find(term.lower())
               if i>=0:
-                  print('CONTEXT_START\\n',re.sub(r'data:image/[^\\\"\\']{100,}', '[INLINE IMAGE OMITTED]', s[max(0,i-220):i+4100]).replace('><','>\\n<'),'\\nCONTEXT_END')
+                  print('CONTEXT_START',repr(s[max(0,i-160):i+2600])[:2900],'CONTEXT_END')
           PY
