@@ -1,0 +1,27 @@
+name: Inspect WebNextOnline Portfolio Structure
+on:
+  push:
+    branches: [main]
+    paths:
+      - '.github/workflows/inspect-portfolio.yml'
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  inspect:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Inspect exact portfolio card markup
+        run: |
+          python - <<'PY'
+          from pathlib import Path
+          import re
+          s=Path('index.html').read_text('utf-8')
+          print('FILE_SIZE',len(s),'LINE_COUNT',s.count('\\n'))
+          for term in ['Consulting website','Watch e-commerce','SaaS product site','Work that','Search projects','All 9','Portfolio','View concept']:
+              print('\\nTERM',term,'OCCURRENCES',s.lower().count(term.lower()))
+              i=s.lower().find(term.lower())
+              if i>=0:
+                  print('CONTEXT_START\\n',s[max(0,i-1100):i+1900].replace('><','>\\n<'),'\\nCONTEXT_END')
+          PY
