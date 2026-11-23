@@ -1627,4 +1627,6 @@ function openToolFromURL(){const key=new URLSearchParams(location.search).get('t
 const originalSiteHTML=pv.innerHTML;let prior=originalSiteHTML;let updating=false;const observer=new MutationObserver(()=>{if(updating)return;const newMarkup=pv.innerHTML;if(newMarkup===prior)return;const hero=pv.querySelector('.s-hero');if(!hero)return;updating=true;applyOrder();prior=pv.innerHTML;updating=false;updateQuote()});observer.observe(pv,{childList:true,subtree:false});
 nameEl.addEventListener('input',updateQuote);document.querySelectorAll('#pvInd button').forEach(b=>b.addEventListener('click',()=>setTimeout(()=>{gallery();updateQuote()},0)));
 })();
-</script></body></html>
+</script>
+<script defer src="/assets/portfolio-live.js?v=134"></script>
+</body></html>
