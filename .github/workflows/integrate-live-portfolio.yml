@@ -1,0 +1,41 @@
+name: Integrate Live Projects Into Main Portfolio
+on:
+  push:
+    branches: [main]
+    paths:
+      - 'assets/portfolio-live.js'
+      - '.github/workflows/integrate-live-portfolio.yml'
+  workflow_dispatch:
+permissions:
+  contents: write
+jobs:
+  integrate:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          persist-credentials: true
+      - name: Link 134 projects to the existing Portfolio view
+        run: |
+          python - <<'PY'
+          from pathlib import Path
+          p=Path('index.html')
+          s=p.read_text(encoding='utf-8')
+          marker='<script defer src="/assets/portfolio-live.js?v=134"></script>'
+          assert 'id="pgrid"' in s and 'id="pfl"' in s and 'id="vp"' in s, 'Original portfolio gallery was not found'
+          assert s.lower().count('</body>') >= 1, 'Missing body closing tag'
+          if marker not in s:
+              head, tail=s.rsplit('</body>',1)
+              s=head+'\n'+marker+'\n</body>'+tail
+              p.write_text(s,encoding='utf-8')
+          print('Portfolio integration:', 'OK' if marker in p.read_text(encoding='utf-8') else 'ERROR')
+          PY
+      - name: Commit gallery integration to live homepage
+        run: |
+          if ! git diff --quiet -- index.html; then
+            git config user.name "github-actions[bot]"
+            git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+            git add index.html
+            git commit -m "Show 134 real project cards inside existing Portfolio page"
+            git push origin HEAD:main
+          fi
