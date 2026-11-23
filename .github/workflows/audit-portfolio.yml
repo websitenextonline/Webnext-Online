@@ -1,0 +1,47 @@
+name: Audit portfolio destinations
+on:
+  push:
+    branches: [main]
+    paths:
+      - '.github/workflows/audit-portfolio.yml'
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  audit:
+    runs-on: ubuntu-latest
+    timeout-minutes: 12
+    steps:
+      - uses: actions/checkout@v4
+      - name: Check site responses and parking/404 signals
+        run: |
+          python -m pip install --quiet requests
+          python - <<'PY'
+          import re,json,requests,concurrent.futures,html
+          from pathlib import Path
+          s=Path("assets/portfolio-live.js").read_text()
+          items=json.loads(re.search(r'const PROJECTS=(\[.*?\]);\s*const PAGE_SIZE',s,re.S).group(1))
+          items += [
+            {"name":"TRT Packaging","url":"https://trtpackaging.com/"},
+            {"name":"Addas Travels","url":"https://addastravels.com/"}
+          ]
+          def check(p):
+            url=p["url"]
+            try:
+              r=requests.get(url,timeout=(5,12),allow_redirects=True,headers={'User-Agent':'Mozilla/5.0 (compatible; PortfolioLinkAudit/1.0)'})
+              body=r.text[:35000].lower()
+              title=re.search(r'<title[^>]*>(.*?)</title',body,re.S)
+              title=html.unescape(re.sub('<[^>]+>','',title.group(1))).strip()[:100] if title else ''
+              fail=bool(re.search(r'(404 not found|404 error|page not found|this site can.t be reached|domain for sale|buy this domain|domain has expired|website is coming soon|site under construction|account suspended|default web site page|index of /)',body[:7000]))
+              classification='FAILED' if r.status_code in [404,410,451] or fail else ('REVIEW' if r.status_code>=400 or r.status_code<200 else 'PASS')
+              return {'name':p['name'],'url':url,'status':r.status_code,'final':r.url[:100],'title':title,'class':classification,'reason':'page error/parking signal' if fail else ''}
+            except Exception as e:
+              return {'name':p['name'],'url':url,'status':None,'class':'REVIEW','reason':type(e).__name__+' '+str(e)[:100]}
+          with concurrent.futures.ThreadPoolExecutor(max_workers=20) as ex:
+            rows=list(ex.map(check,items))
+          for c in ['FAILED','REVIEW','PASS']:
+            group=[x for x in rows if x['class']==c]
+            print('AUDIT_GROUP',c,'COUNT',len(group),flush=True)
+            for x in group:print('AUDIT_ITEM '+json.dumps(x,ensure_ascii=False),flush=True)
+          print('AUDIT_TOTAL',len(rows),flush=True)
+          PY
