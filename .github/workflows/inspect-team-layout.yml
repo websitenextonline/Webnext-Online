@@ -15,11 +15,11 @@ jobs:
           from pathlib import Path
           import re
           s=Path('index.html').read_text('utf-8')
-          for term in ['Team portfolios & profiles','Team profiles & portfolios','View Portfolio','View Profile','wnMemberDirectory','member-directory.js','id="ceo"']:
+          for term in ['const TEAM','const TM','ceo.innerHTML','$("#ceo")','document.getElementById("ceo")','team portfolios','View Portfolio','View Profile','id="ceo"']:
             indexes=[m.start() for m in re.finditer(re.escape(term),s,re.I)]
             print('TERM',term,'MATCHES',len(indexes),'POSITIONS',indexes[:15])
-            for i in indexes[:3]:
-              txt=s[max(0,i-750):i+1650]
+            for i in indexes[:2]:
+              txt=s[max(0,i-750):i+3500]
               txt=re.sub(r'data:image/[^"\s]+','[BASE64 IMAGE]',txt)
-              print('SNIPPET',repr(txt[:2400]))
+              print('SNIPPET',repr(txt[:4500]))
           PY
