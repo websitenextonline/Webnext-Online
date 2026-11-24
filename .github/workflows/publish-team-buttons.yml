@@ -25,17 +25,19 @@ jobs:
           p=Path('index.html')
           s=p.read_text(encoding='utf-8')
           assert 'id="wnTeamAlbum"' in s and 'id="vt"' in s
-          link='<link rel="stylesheet" href="/assets/team-album/member-directory.css?v=carousel-clean-v6">'
-          script='<script defer src="/assets/team-album/member-directory.js?v=carousel-clean-v6"></script>'
+          link='<link rel="stylesheet" href="/assets/team-album/member-directory.css?v=carousel-clean-v7">'
+          script='<script defer src="/assets/team-album/member-directory.js?v=carousel-clean-v7"></script>'
           s=re.sub(r'<link rel="stylesheet" href="/assets/team-album/member-directory.css[^"]*">','',s)
           s=re.sub(r'<script defer src="/assets/team-album/member-directory.js[^"]*"></script>','',s)
           assert '</head>' in s and '</body>' in s
           # Force refresh of the original horizontal Team cards renderer.
-          s=re.sub(r'(assets/team-album/album\.js)(?:\?[^"\s<>]*)?',r'\1?v=carousel-clean-v6',s)
-          assert 'assets/team-album/album.js?v=carousel-clean-v6' in s, 'Team renderer script missing'
+          s=re.sub(r'(assets/team-album/album\.js)(?:\?[^"\s<>]*)?',r'\1?v=carousel-clean-v7',s)
+          assert 'assets/team-album/album.js?v=carousel-clean-v7' in s, 'Team renderer script missing'
           s=s.replace('</head>',link+'\n</head>',1)
           head,tail=s.rsplit('</body>',1)
           s=head+'\n'+script+'\n</body>'+tail
+          s=re.sub(r'<style id="wn-carousel-restore">.*?</style>','',s,flags=re.S)
+          s=s.replace('</head>', '<style id="wn-carousel-restore">#wnTeamAlbum .wn-album-card a,#wnTeamAlbum .wn-album-card button,#wnTeamAlbum .wn-album-member-actions,#wnTeamAlbum .wn-team-inline-actions,#wnMemberDirectory{display:none!important;visibility:hidden!important}</style>'+'</head>',1)
           p.write_text(s,encoding='utf-8')
           print('Team button assets connected:',link in s and script in s)
           PY
@@ -45,7 +47,7 @@ jobs:
             git config user.name "github-actions[bot]"
             git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
             git add index.html
-            git commit -m "Display View Profile and View Portfolio buttons in Team cards"
+            git commit -m "Restore clean carousel without duplicate buttons"
             git pull --rebase origin main
             git push origin HEAD:main
           fi
