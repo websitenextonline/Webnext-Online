@@ -284,3 +284,9 @@ html,body{max-width:100%;overflow-x:clip}
 
 @media(max-width:760px){#wn-motion-toggle,#wn-flame-canvas,#wn-flame-cursor{display:none!important}}
 
+
+/* Hide only the Haseeb Crafts footer credit on all screen sizes. */
+:is(footer,.ft,.site-footer) a[href*="haseeb-crafts" i],
+:is(footer,.ft,.site-footer) a[href*="haseebcrafts" i],
+:is(footer,.ft,.site-footer) a[aria-label*="Haseeb Crafts" i],
+:is(footer,.ft,.site-footer) a[title*="Haseeb Crafts" i] {display:none!important;}
