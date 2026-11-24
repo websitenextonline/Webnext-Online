@@ -1,0 +1,25 @@
+name: Inspect existing team cards
+on:
+  push:
+    paths: ['.github/workflows/inspect-team-layout.yml']
+  workflow_dispatch:
+permissions: {contents: read}
+jobs:
+  inspect:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Find Team portfolios cards and markup
+        run: |
+          python - <<'PY'
+          from pathlib import Path
+          import re
+          s=Path('index.html').read_text('utf-8')
+          for term in ['Team portfolios & profiles','Team profiles & portfolios','View Portfolio','View Profile','wnMemberDirectory','member-directory.js','id="ceo"']:
+            indexes=[m.start() for m in re.finditer(re.escape(term),s,re.I)]
+            print('TERM',term,'MATCHES',len(indexes),'POSITIONS',indexes[:15])
+            for i in indexes[:3]:
+              txt=s[max(0,i-750):i+1650]
+              txt=re.sub(r'data:image/[^"\s]+','[BASE64 IMAGE]',txt)
+              print('SNIPPET',repr(txt[:2400]))
+          PY
