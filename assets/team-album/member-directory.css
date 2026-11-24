@@ -1,11 +1,3 @@
-/* Two actions inside original Team cards, without a second team grid */
-#vt .wn-member-directory{display:none!important}
-#vt .wn-team-inline-actions{display:flex;justify-content:center;align-items:center;flex-wrap:wrap;gap:8px;margin:12px 0 0;position:relative;z-index:4}
-#vt .wn-team-inline-button{display:inline-flex!important;align-items:center;justify-content:center;min-height:38px;padding:9px 13px;border-radius:10px;background:#086fcb;color:#fff!important;text-decoration:none!important;font:750 12px/1.2 Inter,system-ui,sans-serif!important;white-space:nowrap;box-shadow:0 3px 9px rgba(1,43,91,.13);transition:background .2s,transform .2s}
-#vt .wn-team-inline-button:hover{background:#07549c;transform:translateY(-1px)}
-#vt .wn-team-inline-button.secondary{background:#e9f3ff;color:#075da6!important;border:1px solid #b9d8fa}
-#vt .wn-team-inline-button.secondary:hover{background:#d9ebff}
-#vt .wn-profile-inline-link{margin:5px 8px 5px 0}
-#vt .wn-album-caption{overflow:visible}
-@media(max-width:520px){#vt .wn-team-inline-actions{gap:6px}#vt .wn-team-inline-button{font-size:11px!important;padding:8px 10px;min-height:35px}}
-@media(prefers-reduced-motion:reduce){#vt .wn-team-inline-button{transition:none}}
+/* Original team carousel: portraits, names and roles only. */
+#wnMemberDirectory,.wn-member-directory{display:none!important}
+#wnTeamAlbum .wn-album-card a,#wnTeamAlbum .wn-album-card button,#wnTeamAlbum .wn-album-member-actions,#wnTeamAlbum .wn-team-inline-actions,#wnTeamAlbum .wn-haseeb-portfolio,#wnTeamAlbum .wn-album-member-btn{display:none!important;visibility:hidden!important}
