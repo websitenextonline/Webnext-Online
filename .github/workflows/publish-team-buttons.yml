@@ -1,0 +1,46 @@
+name: Publish Team Profile Buttons
+on:
+  push:
+    branches: [main]
+    paths:
+      - 'assets/team-album/member-directory.*'
+      - 'team/profile/**'
+      - '.github/workflows/publish-team-buttons.yml'
+  workflow_dispatch:
+permissions:
+  contents: write
+jobs:
+  integrate:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          persist-credentials: true
+      - name: Connect profile and portfolio buttons to original Team view
+        run: |
+          python - <<'PY'
+          from pathlib import Path
+          import re
+          p=Path('index.html')
+          s=p.read_text(encoding='utf-8')
+          assert 'id="wnTeamAlbum"' in s and 'id="vt"' in s
+          link='<link rel="stylesheet" href="/assets/team-album/member-directory.css?v=buttons-2">'
+          script='<script defer src="/assets/team-album/member-directory.js?v=buttons-2"></script>'
+          s=re.sub(r'<link rel="stylesheet" href="/assets/team-album/member-directory.css[^"]*">','',s)
+          s=re.sub(r'<script defer src="/assets/team-album/member-directory.js[^"]*"></script>','',s)
+          assert '</head>' in s and '</body>' in s
+          s=s.replace('</head>',link+'\n</head>',1)
+          head,tail=s.rsplit('</body>',1)
+          s=head+'\n'+script+'\n</body>'+tail
+          p.write_text(s,encoding='utf-8')
+          print('Team button assets connected:',link in s and script in s)
+          PY
+      - name: Commit published Team button links
+        run: |
+          if ! git diff --quiet -- index.html; then
+            git config user.name "github-actions[bot]"
+            git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+            git add index.html
+            git commit -m "Display View Profile and View Portfolio buttons in Team cards"
+            git push origin HEAD:main
+          fi
