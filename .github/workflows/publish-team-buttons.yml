@@ -24,8 +24,8 @@ jobs:
           p=Path('index.html')
           s=p.read_text(encoding='utf-8')
           assert 'id="wnTeamAlbum"' in s and 'id="vt"' in s
-          link='<link rel="stylesheet" href="/assets/team-album/member-directory.css?v=buttons-2">'
-          script='<script defer src="/assets/team-album/member-directory.js?v=buttons-2"></script>'
+          link='<link rel="stylesheet" href="/assets/team-album/member-directory.css?v=inline-team-v3">'
+          script='<script defer src="/assets/team-album/member-directory.js?v=inline-team-v3"></script>'
           s=re.sub(r'<link rel="stylesheet" href="/assets/team-album/member-directory.css[^"]*">','',s)
           s=re.sub(r'<script defer src="/assets/team-album/member-directory.js[^"]*"></script>','',s)
           assert '</head>' in s and '</body>' in s
