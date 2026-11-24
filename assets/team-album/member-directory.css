@@ -22,3 +22,11 @@
 @media(max-width:860px){#vt .wn-member-grid{grid-template-columns:repeat(2,minmax(0,1fr))}}
 @media(max-width:530px){#vt .wn-member-grid{grid-template-columns:1fr}#vt .wn-member-photo{height:270px}#vt .wn-member-info{min-height:0}#vt .wn-member-directory{margin-top:32px}}
 @media(prefers-reduced-motion:reduce){#vt .wn-member-card{transition:none}}
+
+/* Two CTA buttons on the original rotating portrait cards */
+#vt .wn-album-member-actions{display:flex;align-items:center;justify-content:center;gap:7px;flex-wrap:wrap;margin-top:12px}
+#vt .wn-album-member-btn{display:inline-flex;align-items:center;justify-content:center;padding:8px 10px;min-height:35px;border-radius:9px;background:#0765b9;color:#fff!important;text-decoration:none!important;font:700 11px/1.2 Inter,system-ui,sans-serif;white-space:nowrap;transition:background .2s ease}
+#vt .wn-album-member-btn:hover{background:#004783}
+#vt .wn-album-member-btn.is-secondary{background:rgba(241,248,255,.96);color:#07569c!important}
+#vt .wn-album-member-btn.is-secondary:hover{background:#dcefff}
+#vt .wn-member-actions .wn-member-link{flex:1;white-space:nowrap}
