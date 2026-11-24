@@ -25,14 +25,14 @@ jobs:
           p=Path('index.html')
           s=p.read_text(encoding='utf-8')
           assert 'id="wnTeamAlbum"' in s and 'id="vt"' in s
-          link='<link rel="stylesheet" href="/assets/team-album/member-directory.css?v=team-restored-v5">'
-          script='<script defer src="/assets/team-album/member-directory.js?v=team-restored-v5"></script>'
+          link='<link rel="stylesheet" href="/assets/team-album/member-directory.css?v=carousel-clean-v6">'
+          script='<script defer src="/assets/team-album/member-directory.js?v=carousel-clean-v6"></script>'
           s=re.sub(r'<link rel="stylesheet" href="/assets/team-album/member-directory.css[^"]*">','',s)
           s=re.sub(r'<script defer src="/assets/team-album/member-directory.js[^"]*"></script>','',s)
           assert '</head>' in s and '</body>' in s
           # Force refresh of the original horizontal Team cards renderer.
-          s=re.sub(r'(assets/team-album/album\.js)(?:\?[^"\s<>]*)?',r'\1?v=team-restored-v5',s)
-          assert 'assets/team-album/album.js?v=team-restored-v5' in s, 'Team renderer script missing'
+          s=re.sub(r'(assets/team-album/album\.js)(?:\?[^"\s<>]*)?',r'\1?v=carousel-clean-v6',s)
+          assert 'assets/team-album/album.js?v=carousel-clean-v6' in s, 'Team renderer script missing'
           s=s.replace('</head>',link+'\n</head>',1)
           head,tail=s.rsplit('</body>',1)
           s=head+'\n'+script+'\n</body>'+tail
