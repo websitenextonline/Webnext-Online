@@ -89,33 +89,6 @@
   show(opening);
 })();
 
-/* Open Abdul Haseeb's full portfolio from the team album and desk. */
-(()=>{
- const url='/abdul-haseeb/';
- const style=document.createElement('style');
- style.textContent='.wn-album-stage{height:615px}@media(max-width:620px){.wn-album-stage{height:545px}}@media(max-width:360px){.wn-album-stage{height:517px}}.wn-haseeb-portfolio{display:inline-flex!important;align-items:center;justify-content:center;padding:9px 14px!important;margin-top:12px!important;border-radius:7px;background:#fff!important;color:#064d91!important;font:600 14px/1.2 Inter,Arial,sans-serif!important;letter-spacing:0;text-decoration:none;position:relative;z-index:2;min-height:38px}.wn-haseeb-portfolio:hover{background:#dceeff!important}.wn-haseeb-portfolio:focus-visible{outline:3px solid #54bbff;outline-offset:3px}.wn-album-caption:has(.wn-haseeb-portfolio){padding-bottom:18px}.pol .pb .wn-haseeb-portfolio{background:#0869cc!important;color:#fff!important;font-size:12px!important;margin-top:10px!important;padding:8px 10px!important}.wn-haseeb-team-link{display:flex;align-items:center;justify-content:space-between;gap:24px;margin:28px 0 20px;padding:25px 30px;border:1px solid #c6dff0;border-radius:14px;background:linear-gradient(110deg,#f3f9ff,#e4f2ff);color:#082345}.wn-haseeb-team-link strong{display:block;font-size:19px;line-height:1.3}.wn-haseeb-team-link p{margin:7px 0 0;font-size:14px;color:#526d85}.wn-haseeb-team-link a{background:#0869cc!important;color:#fff!important;margin:0!important;white-space:nowrap}@media(max-width:580px){.wn-haseeb-team-link{flex-direction:column;align-items:flex-start;padding:23px;gap:18px}.wn-haseeb-team-link strong{font-size:18px}}';
- document.head.appendChild(style);
- function addLink(parent){const a=document.createElement('a');a.href=url;a.className='wn-haseeb-portfolio';a.textContent='View Portfolio';a.setAttribute('aria-label','View Abdul Haseeb’s full portfolio');a.addEventListener('pointerdown',e=>e.stopPropagation());a.addEventListener('click',e=>e.stopPropagation());parent.appendChild(a);return a}
- document.querySelectorAll('.wn-album-card').forEach(card=>{if(card.querySelector('h3')?.textContent.trim()==='Abdul Haseeb'){const link=addLink(card.querySelector('.wn-album-caption'));link.tabIndex=card.getAttribute('aria-hidden')==='true'?-1:0}});
- document.querySelectorAll('#wnDesk .pol').forEach(card=>{const back=card.querySelector('.pb');if(back?.querySelector('b')?.textContent.trim()==='Abdul Haseeb'){back.querySelectorAll('a').forEach(a=>{if(/\\bcv\\b|resume/i.test(a.textContent))a.remove()});addLink(back)}});
- const album=document.getElementById('wnTeamAlbum');
- if(album){const promo=document.createElement('div');promo.className='wn-haseeb-team-link';promo.innerHTML='<div><strong>Abdul Haseeb · Web Designer &amp; Motion Creator</strong><p>Explore the full Haseeb Crafts portfolio, selected work and creative toolkit.</p></div>';addLink(promo);album.insertAdjacentElement('afterend',promo)}
-})();
-
-/* Hamza Farooq: dedicated portfolio from the CEO and opening album card. */
-(()=>{
- const url='/hamza-farooq/';
- const style=document.createElement('style');
- style.textContent='#ceo .hf-profile-actions{display:flex;gap:12px;flex-wrap:wrap;align-items:center}#ceo .hf-ceo-portfolio{background:#076cb4;color:#fff;border-color:#076cb4}#ceo .hf-ceo-portfolio:hover{background:#07558d}';
- document.head.appendChild(style);
- function link(className){const a=document.createElement('a');a.href=url;a.className=className;a.textContent='View Portfolio';a.setAttribute('aria-label','View Hamza Farooq’s full portfolio');a.addEventListener('pointerdown',e=>e.stopPropagation());a.addEventListener('click',e=>e.stopPropagation());return a}
- const info=document.querySelector('#ceo .inf');
- if(info){const actions=info.lastElementChild;actions.classList.add('hf-profile-actions');actions.prepend(link('btn bp hf-ceo-portfolio'))}
- const cards=[...document.querySelectorAll('.wn-album-card')];
- const card=cards.find(c=>/^Hamza(?: Farooq)?$/.test(c.querySelector('h3')?.textContent.trim()||''));
- if(card){const a=link('wn-haseeb-portfolio');a.tabIndex=card.getAttribute('aria-hidden')==='true'?-1:0;card.querySelector('.wn-album-caption').appendChild(a)}
-})();
-
 /* Shared team profile directory, with the CEO first and completed portfolios linked. */
 (()=>{
  const album=document.getElementById('wnTeamAlbum');
