@@ -28,12 +28,28 @@ function render(){
  const buttons=document.createElement("div");buttons.className="wn-member-actions";
  const link=document.createElement("a");link.className="wn-member-link";link.textContent="View profile ↗";
  link.href="/team/profile/?member="+encodeURIComponent(m[3]);buttons.append(link);
- if(m[3]==="abdul-haseeb"||m[3]==="hamza-farooq"){
-   const portfolio=document.createElement("a");portfolio.href="/"+m[3]+"/";portfolio.textContent="View portfolio ↗";portfolio.className="wn-member-link secondary";buttons.append(portfolio);
- }
+ const portfolio=document.createElement("a");
+ portfolio.href=(m[3]==="abdul-haseeb"||m[3]==="hamza-farooq")?"/"+m[3]+"/":"/team/profile/?member="+encodeURIComponent(m[3])+"#portfolio";
+ portfolio.textContent="View portfolio ↗";
+ portfolio.className="wn-member-link secondary";
+ buttons.append(portfolio);
  info.append(h,role,buttons);card.append(photo,info);grid.append(card);
  });
  section.append(grid);album.insertAdjacentElement("afterend",section);
+ // Both controls also appear on the original portrait carousel cards.
+ const slides=[...album.querySelectorAll(".wn-album-card")];
+ members.forEach((m,i)=>{
+  const slide=slides[i];if(!slide)return;
+  const caption=slide.querySelector(".wn-album-caption");if(!caption)return;
+  let actions=caption.querySelector(".wn-album-member-actions");
+  if(actions)return;
+  actions=document.createElement("div");actions.className="wn-album-member-actions";
+  const profile=document.createElement("a");profile.href="/team/profile/?member="+encodeURIComponent(m[3]);profile.textContent="View Profile";profile.className="wn-album-member-btn";
+  const work=document.createElement("a");work.href=(m[3]==="abdul-haseeb"||m[3]==="hamza-farooq")?"/"+m[3]+"/":"/team/profile/?member="+encodeURIComponent(m[3])+"#portfolio";
+  work.textContent="View Portfolio";work.className="wn-album-member-btn is-secondary";
+  actions.append(profile,work);caption.append(actions);
+ });
+ 
 }
 if(document.readyState==="loading")document.addEventListener("DOMContentLoaded",render,{once:true});else render();
 })();
