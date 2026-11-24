@@ -19,9 +19,11 @@ jobs:
           import re
           s=Path('index.html').read_text('utf-8')
           print('FILE_SIZE',len(s),'LINE_COUNT',s.count('\\n'))
-          for term in ['const PC=', 'let PC=', 'WN_PORTFOLIO_IMAGES=', 'function rpf(', 'let pf=', 'portfolioQuery', 'window.addEventListener']:
-              print('\\nTERM',term,'OCCURRENCES',s.lower().count(term.lower()))
-              i=s.lower().find(term.lower())
+          for term in ['id="vt"', 'id="wnTeamAlbum"', 'class="tm', 'hamza-farooq/', 'abdul-haseeb/', 'TEAM', 'Meet the team']:
+              print('TERM',term,'OCCURRENCES',s.lower().count(term.lower()))
+              i=s.find(term)
               if i>=0:
-                  print('CONTEXT_START',repr(s[max(0,i-160):i+2600])[:2900],'CONTEXT_END')
+                  excerpt=s[max(0,i-350):i+6500]
+                  excerpt=re.sub(r'data:image/[^"\s]+','[INLINE IMAGE OMITTED]',excerpt)
+                  print('EXCERPT',repr(excerpt)[:6900])
           PY
