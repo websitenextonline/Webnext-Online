@@ -1,32 +1,11 @@
-/* Team member profiles — WebNextOnline */
-#vt .wn-member-directory{margin:46px auto 60px;max-width:1180px}
-#vt .wn-member-intro{display:flex;justify-content:space-between;align-items:end;gap:20px;margin:0 0 26px;flex-wrap:wrap}
-#vt .wn-member-intro h2{font-size:clamp(28px,3.4vw,42px);letter-spacing:-.04em;line-height:1.13;margin:9px 0;color:#081e3c}
-#vt .wn-member-intro p{color:#61748d;margin:0;max-width:530px;font-size:15px}
-#vt .wn-member-eyebrow{font-size:11px;font-weight:800;color:#1679d8;letter-spacing:.17em;text-transform:uppercase}
-#vt .wn-member-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:20px}
-#vt .wn-member-card{position:relative;background:#fff;border:1px solid #dce7f5;border-radius:19px;overflow:hidden;box-shadow:0 10px 35px rgba(6,31,71,.075);transition:transform .25s ease,box-shadow .25s ease}
-#vt .wn-member-card:hover{transform:translateY(-5px);box-shadow:0 20px 40px rgba(6,31,71,.14)}
-#vt .wn-member-photo{height:225px;position:relative;background:linear-gradient(135deg,#e0efff,#98c8ed);overflow:hidden}
-#vt .wn-member-photo img{width:100%;height:100%;object-fit:cover;object-position:center 22%;display:block}
-#vt .wn-member-number{position:absolute;top:14px;left:14px;border-radius:20px;background:rgba(4,25,52,.84);color:white;font-size:11px;font-weight:800;padding:7px 12px}
-#vt .wn-member-info{padding:20px;display:flex;flex-direction:column;min-height:198px}
-#vt .wn-member-info h3{font-size:21px;letter-spacing:-.025em;color:#081e3c;margin:0 0 4px}
-#vt .wn-member-role{font-size:13px;color:#52708c;min-height:38px;margin:0 0 12px}
-#vt .wn-member-actions{display:flex;flex-wrap:wrap;gap:9px;margin-top:auto}
-#vt .wn-member-link{display:inline-flex;align-items:center;justify-content:center;gap:6px;border-radius:10px;padding:10px 13px;min-height:40px;text-decoration:none!important;font-weight:750;font-size:12px;background:#075bb3;color:white;transition:background .2s}
-#vt .wn-member-link:hover{background:#053d83}
-#vt .wn-member-link.secondary{background:#e9f3ff;color:#075bb3}
-#vt .wn-member-link.secondary:hover{background:#d0e7ff}
-#vt .wn-member-note{margin-top:15px;color:#6c829d;font-size:12px}
-@media(max-width:860px){#vt .wn-member-grid{grid-template-columns:repeat(2,minmax(0,1fr))}}
-@media(max-width:530px){#vt .wn-member-grid{grid-template-columns:1fr}#vt .wn-member-photo{height:270px}#vt .wn-member-info{min-height:0}#vt .wn-member-directory{margin-top:32px}}
-@media(prefers-reduced-motion:reduce){#vt .wn-member-card{transition:none}}
-
-/* Two CTA buttons on the original rotating portrait cards */
-#vt .wn-album-member-actions{display:flex;align-items:center;justify-content:center;gap:7px;flex-wrap:wrap;margin-top:12px}
-#vt .wn-album-member-btn{display:inline-flex;align-items:center;justify-content:center;padding:8px 10px;min-height:35px;border-radius:9px;background:#0765b9;color:#fff!important;text-decoration:none!important;font:700 11px/1.2 Inter,system-ui,sans-serif;white-space:nowrap;transition:background .2s ease}
-#vt .wn-album-member-btn:hover{background:#004783}
-#vt .wn-album-member-btn.is-secondary{background:rgba(241,248,255,.96);color:#07569c!important}
-#vt .wn-album-member-btn.is-secondary:hover{background:#dcefff}
-#vt .wn-member-actions .wn-member-link{flex:1;white-space:nowrap}
+/* Two actions inside original Team cards, without a second team grid */
+#vt .wn-member-directory{display:none!important}
+#vt .wn-team-inline-actions{display:flex;justify-content:center;align-items:center;flex-wrap:wrap;gap:8px;margin:12px 0 0;position:relative;z-index:4}
+#vt .wn-team-inline-button{display:inline-flex!important;align-items:center;justify-content:center;min-height:38px;padding:9px 13px;border-radius:10px;background:#086fcb;color:#fff!important;text-decoration:none!important;font:750 12px/1.2 Inter,system-ui,sans-serif!important;white-space:nowrap;box-shadow:0 3px 9px rgba(1,43,91,.13);transition:background .2s,transform .2s}
+#vt .wn-team-inline-button:hover{background:#07549c;transform:translateY(-1px)}
+#vt .wn-team-inline-button.secondary{background:#e9f3ff;color:#075da6!important;border:1px solid #b9d8fa}
+#vt .wn-team-inline-button.secondary:hover{background:#d9ebff}
+#vt .wn-profile-inline-link{margin:5px 8px 5px 0}
+#vt .wn-album-caption{overflow:visible}
+@media(max-width:520px){#vt .wn-team-inline-actions{gap:6px}#vt .wn-team-inline-button{font-size:11px!important;padding:8px 10px;min-height:35px}}
+@media(prefers-reduced-motion:reduce){#vt .wn-team-inline-button{transition:none}}
