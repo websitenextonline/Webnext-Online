@@ -15,11 +15,17 @@ jobs:
           from pathlib import Path
           import re
           s=Path('index.html').read_text('utf-8')
-          for term in ['const TEAM','const TM','ceo.innerHTML','$("#ceo")','document.getElementById("ceo")','team portfolios','View Portfolio','View Profile','id="ceo"']:
-            indexes=[m.start() for m in re.finditer(re.escape(term),s,re.I)]
-            print('TERM',term,'MATCHES',len(indexes),'POSITIONS',indexes[:15])
-            for i in indexes[:2]:
-              txt=s[max(0,i-750):i+3500]
-              txt=re.sub(r'data:image/[^"\s]+','[BASE64 IMAGE]',txt)
-              print('SNIPPET',repr(txt[:4500]))
+          for term in ['Team portfolios','portfolio & profiles','team-profiles','team-card','View Portfolio','View Profile']:
+            print('SEARCH',term)
+            matches=[]
+            for p in Path('.').rglob('*'):
+              if not p.is_file() or p.name=='index.html' or '.git' in p.parts:continue
+              if p.suffix not in ['.js','.html','.css']:continue
+              try:
+                content=p.read_text('utf-8')
+                if term.lower() in content.lower():matches.append(str(p))
+              except:pass
+            print('FILES',matches[:30])
+          for term in ['#vt','wn-team','team profiles']:
+            print('INDEX_TERM',term,'COUNT',s.lower().count(term.lower()))
           PY
