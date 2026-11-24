@@ -31,7 +31,7 @@ jobs:
           s=re.sub(r'<script defer src="/assets/team-album/member-directory.js[^"]*"></script>','',s)
           assert '</head>' in s and '</body>' in s
           # Force refresh of the original horizontal Team cards renderer.
-          s=re.sub(r'(assets/team-album/album\\.js)(?:\\?[^"\\s<>]*)?',r'\\1?v=horizontal-team-v4',s)
+          s=re.sub(r'(assets/team-album/album\.js)(?:\?[^"\s<>]*)?',r'\1?v=horizontal-team-v4',s)
           assert 'assets/team-album/album.js?v=horizontal-team-v4' in s, 'Team renderer script missing'
           s=s.replace('</head>',link+'\n</head>',1)
           head,tail=s.rsplit('</body>',1)
