@@ -1,3 +1,6 @@
 /* Original team carousel: portraits, names and roles only. */
 #wnMemberDirectory,.wn-member-directory{display:none!important}
 #wnTeamAlbum .wn-album-card a,#wnTeamAlbum .wn-album-card button,#wnTeamAlbum .wn-album-member-actions,#wnTeamAlbum .wn-team-inline-actions,#wnTeamAlbum .wn-haseeb-portfolio,#wnTeamAlbum .wn-album-member-btn{display:none!important;visibility:hidden!important}
+
+/* Hide the complete footer credit, including its surrounding text. */
+#wn-hc-credit { display: none !important; }
