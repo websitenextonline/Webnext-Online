@@ -25,14 +25,26 @@ jobs:
           p=Path('index.html')
           s=p.read_text(encoding='utf-8')
           assert 'id="wnTeamAlbum"' in s and 'id="vt"' in s
-          link='<link rel="stylesheet" href="/assets/team-album/member-directory.css?v=carousel-clean-v7">'
-          script='<script defer src="/assets/team-album/member-directory.js?v=carousel-clean-v7"></script>'
+          link='<link rel="stylesheet" href="/assets/team-album/member-directory.css?v=carousel-clean-v8-abuzar">'
+          script='<script defer src="/assets/team-album/member-directory.js?v=carousel-clean-v8-abuzar"></script>'
           s=re.sub(r'<link rel="stylesheet" href="/assets/team-album/member-directory.css[^"]*">','',s)
           s=re.sub(r'<script defer src="/assets/team-album/member-directory.js[^"]*"></script>','',s)
           assert '</head>' in s and '</body>' in s
+          # Persist the new Polaroid in the original album markup as well.
+          album_start=s.index('id="wnTeamAlbum"')
+          stage=re.search(r'<[^>]+class="[^"]*\bwn-album-stage\b[^"]*"[^>]*>',s[album_start:])
+          assert stage, 'Original album stage missing'
+          stage_end=album_start+stage.end()
+          if 'data-member="muhammad-abuzar"' not in s:
+            card='<article class="wn-album-card" data-member="muhammad-abuzar"><img src="/assets/team-album/muhammad-abuzar.webp" alt="Muhammad Abuzar" loading="lazy"><div class="wn-album-caption"><h3>Muhammad Abuzar</h3><p>Video Editor · Animator · Graphic Designer</p></div></article>'
+            s=s[:stage_end]+card+s[stage_end:]
+            dots=re.search(r'<[^>]+class="[^"]*\bwn-album-dots\b[^"]*"[^>]*>',s[album_start:])
+            assert dots, 'Original album dots missing'
+            dot_end=album_start+dots.end()
+            s=s[:dot_end]+'<button type="button" class="wn-album-dot" aria-label="Show Muhammad Abuzar"></button>'+s[dot_end:]
           # Force refresh of the original horizontal Team cards renderer.
-          s=re.sub(r'(assets/team-album/album\.js)(?:\?[^"\s<>]*)?',r'\1?v=carousel-clean-v7',s)
-          assert 'assets/team-album/album.js?v=carousel-clean-v7' in s, 'Team renderer script missing'
+          s=re.sub(r'(assets/team-album/album\.js)(?:\?[^"\s<>]*)?',r'\1?v=carousel-clean-v8-abuzar',s)
+          assert 'assets/team-album/album.js?v=carousel-clean-v8-abuzar' in s, 'Team renderer script missing'
           s=s.replace('</head>',link+'\n</head>',1)
           head,tail=s.rsplit('</body>',1)
           s=head+'\n'+script+'\n</body>'+tail
