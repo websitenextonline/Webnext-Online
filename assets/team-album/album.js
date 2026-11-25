@@ -3,6 +3,15 @@
   const album=document.getElementById('wnTeamAlbum');
   if(!album)return;
   const stage=album.querySelector('.wn-album-stage');
+  if(!stage.querySelector('[data-member="muhammad-abuzar"]')) {
+    const card=document.createElement('article');
+    card.className='wn-album-card';card.dataset.member='muhammad-abuzar';
+    const img=document.createElement('img');img.src='/assets/team-album/muhammad-abuzar.webp';img.alt='Muhammad Abuzar';img.loading='lazy';img.addEventListener('error',()=>{img.removeAttribute('src');img.alt='Muhammad Abuzar — portrait pending';},{once:true});
+    const caption=document.createElement('div');caption.className='wn-album-caption';
+    const name=document.createElement('h3');name.textContent='Muhammad Abuzar';
+    const role=document.createElement('p');role.textContent='Video Editor · Animator · Graphic Designer';caption.append(name,role);card.append(img,caption);stage.append(card);
+    const dot=document.createElement('button');dot.type='button';dot.className='wn-album-dot';dot.setAttribute('aria-label','Show Muhammad Abuzar');album.querySelector('.wn-album-dots').append(dot);
+  }
   const cards=[...album.querySelectorAll('.wn-album-card')];
   const dots=[...album.querySelectorAll('.wn-album-dot')];
   const toggle=album.querySelector('.wn-album-toggle');
@@ -33,8 +42,8 @@
       const distance=Math.abs(d),old=Number(card.dataset.distance??9);
       // The wrap takes place behind the visible stack, never across its front.
       card.style.transition=(old>sides&&distance>sides)?'none':'';
-      const x=d===0?0:Math.sign(d)*(wide?step*([0,1,1.85,2.55,3.1][distance]):(distance===1?step:step*1.73+(distance-2)*60));
-      const scale=wide?[1,.86,.71,.57,.5][distance]:(distance===0?1:distance===1?.87:.71);
+      const x=d===0?0:Math.sign(d)*(wide?step*([0,1,1.85,2.55,3.1][Math.min(distance,4)]):(distance===1?step:step*1.73+(distance-2)*60));
+      const scale=wide?[1,.86,.71,.57,.5][Math.min(distance,4)]:(distance===0?1:distance===1?.87:.71);
       card.style.transform=`translate3d(${x}px,${distance*10}px,${-distance*(wide?30:85)}px) rotateY(${d===0?0:-Math.sign(d)*18}deg) scale(${scale})`;
       card.style.opacity=distance>sides?'0':distance===0?'1':distance===1?'.92':distance===2?'.76':'.58';
       card.style.zIndex=String(10-distance);
@@ -46,7 +55,7 @@
     });
     dots.forEach((dot,i)=>dot.setAttribute('aria-current',String(i===active)));
     const name=cards[active].querySelector('h3').textContent;
-    status.textContent=`${String(active+1).padStart(2,'0')} / 09 · ${name}`;
+    status.textContent=`${String(active+1).padStart(2,'0')} / ${String(cards.length).padStart(2,'0')} · ${name}`;
     if(announce)live.textContent=`${name}, team member ${active+1} of ${cards.length}`;
     schedule();
   }
