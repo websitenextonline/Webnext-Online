@@ -1,0 +1,5 @@
+Brand logo sources (unmodified paths, brand fill colors applied):
+Simple Icons: https://github.com/simple-icons/simple-icons (develop and 11.15.0), CC0
+CapCut: https://github.com/lobehub/lobe-icons/blob/master/packages/static-svg/icons/capcut.svg
+Figma, Google Drive, Gemini: https://github.com/gilbarbara/logos/tree/main/logos
+Google Flow original Google artwork: https://commons.wikimedia.org/wiki/File:Google_Flow_logo.svg
