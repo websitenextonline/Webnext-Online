@@ -625,7 +625,7 @@ nav{transition:background .3s,box-shadow .3s,color .3s}nav.tr{background:transpa
 
 
 <link rel="stylesheet" href="assets/team-album/album.css">
-<script src="assets/team-album/album.js?v=taimoor-portfolio-v9" defer></script>
+<script src="assets/team-album/album.js?v=taimoor-portfolio-v9" defer></script><link rel="stylesheet" href="/assets/team-album/member-actions.css?v=1"><script src="/assets/team-album/member-actions.js?v=1" defer></script>
 
 
 
@@ -1460,7 +1460,7 @@ pv.innerHTML='<div class="s-page">'+nav+hero+stats+svc+gal+rev+cta+'<div class="
 $("#pvUrl").textContent=(name.toLowerCase().replace(/[^a-z0-9]+/g,"")||"yourbusiness")+".com";
 $("#pvGo").href=WAU+encodeURIComponent('Hi WebNextOnline! I tried the preview maker. I want a website for "'+name+'" ('+d[0]+"). Style: "+st[0]+", "+(lay?"centered":"split")+" layout, "+(dark?"dark":"light")+" theme, colour "+a+". Can we talk?");
 if(pop){pv.classList.remove("pop");void pv.offsetWidth;pv.classList.add("pop")}};
-$("#pvDl").onclick=()=>{const name=nm.value.trim()||"Your Business",html='<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>'+esc(name)+'</title><link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800&display=swap" rel="stylesheet"><style>body{margin:0}'+SITE_CSS+"</style></head><body>"+pv.outerHTML.replace(" pop","")+"</body></html>",a=document.createElement("a");a.href=URL.createObjectURL(new Blob([html],{type:"text/html"}));a.download=(name.toLowerCase().replace(/[^a-z0-9]+/g,"-").replace(/^-|-$/g,"")||"home")+"-home.html";document.body.appendChild(a);a.click();a.remove()};
+$("#pvDl").onclick=()=>{const name=nm.value.trim()||"Your Business",html='<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>'+esc(name)+'</title><link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800&display=swap" rel="stylesheet"><style>body{margin:0}'+SITE_CSS+"</style></head><body>"+pv.outerHTML.replace(" pop","")+"<\/body></html>",a=document.createElement("a");a.href=URL.createObjectURL(new Blob([html],{type:"text/html"}));a.download=(name.toLowerCase().replace(/[^a-z0-9]+/g,"-").replace(/^-|-$/g,"")||"home")+"-home.html";document.body.appendChild(a);a.click();a.remove()};
 const R=n=>Math.floor(Math.random()*n),ck=(el,i)=>el.children[i]&&el.children[i].click();
 $("#pvRf").onclick=function(){const b=this;b.classList.add("spin");ck($("#pvSty"),R(3));ck($("#pvLay"),R(2));ck($("#pvThm"),Math.random()<.35?1:0);const c=sw.querySelectorAll("button.sw:not(.auto)");c[R(c.length)].click();setTimeout(()=>b.classList.remove("spin"),600)};
 $("#pvRs").onclick=()=>{nm.value="";["#pvInd","#pvSty","#pvLay","#pvThm","#pvDev"].forEach(k=>ck($(k),0));sw.querySelector(".auto").click();[...ms.children].forEach(x=>{if(!x.classList.contains("on"))x.click()})};
@@ -1483,7 +1483,7 @@ if(first){first=false;requestAnimationFrame(()=>requestAnimationFrame(()=>{dk.cl
 new IntersectionObserver(e=>{if(e[0].isIntersecting)layout(first?"init":"keep")}).observe(dk);
 let rt=0;addEventListener("resize",()=>{clearTimeout(rt);rt=setTimeout(()=>{if(!first)layout("init")},200)},{passive:true});
 $("#dkShuf").onclick=()=>layout("shuf");$("#dkTidy").onclick=()=>layout("tidy");
-dk.addEventListener("pointerdown",e=>{const el=e.target.closest(".pol");if(!el||e.target.closest("a"))return;const p=P.find(q=>q.el===el);drag={p,sx:e.clientX,sy:e.clientY,ox:p.x,oy:p.y,moved:false};el.setPointerCapture(e.pointerId);el.style.zIndex=++z;e.preventDefault()});
+dk.addEventListener("pointerdown",e=>{const el=e.target.closest(".pol");if(!el||e.target.closest("a,button"))return;const p=P.find(q=>q.el===el);drag={p,sx:e.clientX,sy:e.clientY,ox:p.x,oy:p.y,moved:false};el.setPointerCapture(e.pointerId);el.style.zIndex=++z;e.preventDefault()});
 dk.addEventListener("pointermove",e=>{if(!drag)return;const dx=e.clientX-drag.sx,dy=e.clientY-drag.sy;if(!drag.moved&&Math.hypot(dx,dy)>5){drag.moved=true;drag.p.el.classList.add("drag")}if(!drag.moved)return;const p=drag.p;p.x=Math.max(-pw*.15,Math.min(W-pw*.85,drag.ox+dx));p.y=Math.max(-ph*.1,Math.min(Hh-ph*.9,drag.oy+dy));apply(p,1)});
 const end=()=>{if(!drag)return;const p=drag.p;p.el.classList.remove("drag");if(drag.moved){p.r=rnd(-6,6);apply(p)}else p.el.classList.toggle("flip");drag=null};
 dk.addEventListener("pointerup",end);dk.addEventListener("pointercancel",end)}
