@@ -6,7 +6,7 @@
   if(!stage.querySelector('[data-member="muhammad-abuzar"]')) {
     const card=document.createElement('article');
     card.className='wn-album-card';card.dataset.member='muhammad-abuzar';
-    const img=document.createElement('img');img.src='/assets/team-album/muhammad-abuzar.webp';img.alt='Muhammad Abuzar';img.loading='lazy';img.addEventListener('error',()=>{img.removeAttribute('src');img.alt='Muhammad Abuzar — portrait pending';},{once:true});
+    const img=document.createElement('img');img.src='/assets/team-album/muhammad-abuzar.webp?v=2';img.alt='Muhammad Abuzar';img.loading='lazy';img.addEventListener('error',()=>{img.removeAttribute('src');img.alt='Muhammad Abuzar — portrait pending';},{once:true});
     const caption=document.createElement('div');caption.className='wn-album-caption';
     const name=document.createElement('h3');name.textContent='Muhammad Abuzar';
     const role=document.createElement('p');role.textContent='Video Editor · Animator · Graphic Designer';caption.append(name,role);card.append(img,caption);stage.append(card);
@@ -51,7 +51,7 @@
       card.dataset.distance=distance;
       card.setAttribute('aria-hidden',String(i!==active));
       card.querySelectorAll('a').forEach(a=>a.tabIndex=i===active?0:-1);
-      if(distance<=sides)card.querySelector('img').loading='eager';
+      if(visible&&distance<=sides)card.querySelector('img').loading='eager';
     });
     dots.forEach((dot,i)=>dot.setAttribute('aria-current',String(i===active)));
     const name=cards[active].querySelector('h3').textContent;
@@ -93,7 +93,7 @@
   document.addEventListener('visibilitychange',schedule);
   reduce.addEventListener('change',schedule);
   new ResizeObserver(()=>show(active)).observe(album);
-  new IntersectionObserver(entries=>{visible=entries[0].isIntersecting;schedule()},{threshold:.2}).observe(album);
+  new IntersectionObserver(entries=>{visible=entries[0].isIntersecting;if(visible)show(active);else schedule()},{threshold:.2}).observe(album);
   window.addEventListener('hashchange',()=>{if(location.hash==='#team')show(opening)});
   show(opening);
 })();

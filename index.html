@@ -1094,7 +1094,7 @@ html,body{max-width:100%;overflow-x:clip}
 <section style="padding:0 0 90px"><div class="w"><div class="ceo rv" id="ceo"></div>
 <div class="ct rv" style="margin-top:76px"><span class="kk">The team</span><h2 id="wnTeamHeading" style="font-size:clamp(26px,3.4vw,38px)">Meet the team</h2></div><!-- wn-team-album:start -->
 <div class="wn-album" id="wnTeamAlbum" role="region" aria-roledescription="carousel" aria-labelledby="wnTeamHeading">
-<div class="wn-album-stage" tabindex="0" aria-label="Team portraits. Use left and right arrow keys to browse."><article class="wn-album-card" data-member="muhammad-abuzar"><img decoding="async" src="/assets/team-album/muhammad-abuzar.webp" alt="Muhammad Abuzar" loading="lazy"><div class="wn-album-caption"><h3>Muhammad Abuzar</h3><p>Video Editor · Animator · Graphic Designer</p></div></article>
+<div class="wn-album-stage" tabindex="0" aria-label="Team portraits. Use left and right arrow keys to browse."><article class="wn-album-card" data-member="muhammad-abuzar"><img decoding="async" src="/assets/team-album/muhammad-abuzar.webp?v=2" alt="Muhammad Abuzar" loading="lazy"><div class="wn-album-caption"><h3>Muhammad Abuzar</h3><p>Video Editor · Animator · Graphic Designer</p></div></article>
 <article class="wn-album-card" role="group" aria-roledescription="slide" aria-label="1 of 9: Shahzaib" aria-hidden="false"><img src="assets/team-album/shahzaib.webp" alt="Shahzaib — WebNextOnline team portrait" width="620" height="930" loading="lazy" decoding="async" draggable="false"><div class="wn-album-caption"><h3>Shahzaib</h3><p>Coding Expert &amp; WordPress</p></div></article>
 <article class="wn-album-card" role="group" aria-roledescription="slide" aria-label="2 of 9: Jahanzeb" aria-hidden="true"><img src="assets/team-album/jahanzeb.webp" alt="Jahanzeb — WebNextOnline team portrait" width="603" height="1080" loading="lazy" decoding="async" draggable="false"><div class="wn-album-caption"><h3>Jahanzeb</h3><p>Canva &amp; MS Office</p></div></article>
 <article class="wn-album-card" role="group" aria-roledescription="slide" aria-label="3 of 9: Rehman" aria-hidden="true"><img src="assets/team-album/rehman.webp" alt="Rehman — WebNextOnline team portrait" width="603" height="1080" loading="lazy" decoding="async" draggable="false"><div class="wn-album-caption"><h3>Rehman</h3><p>Canva, MS Office &amp; Social Media Marketing</p></div></article>
@@ -1481,7 +1481,7 @@ const show=()=>{if(q<QZ.length){qc.innerHTML='<div class="wn-qz-bar"><i style="w
 qc.querySelectorAll("button").forEach(b=>b.onclick=()=>{b.classList.add("pk");sc[+b.dataset.i]++;setTimeout(()=>{q++;show()},260)});requestAnimationFrame(()=>{const f=qc.querySelector(".wn-qz-bar i");if(f)f.style.width=((q+1)/QZ.length*100)+"%"})}
 else{const w=sc.indexOf(Math.max(...sc)),p=PS[w];qc.innerHTML='<div class="wn-qz-bar"><i style="width:100%"></i></div><div class="wn-qz-res wn-qz-in"><small class="st">Your result</small><h3>'+p[0]+'</h3><div class="tg2l">'+p[1]+'</div><div class="sw">'+p[3].map(c=>'<i style="background:'+c+'"></i>').join("")+'</div><p>'+p[2]+'</p><div class="wn-chips">'+p[4].map(s=>'<span>'+s+'</span>').join("")+'</div><div class="wn-qz-act"><a class="btn bp" target="_blank" rel="noopener" href="'+WAU+encodeURIComponent('Hi WebNextOnline! I took the brand quiz and got "'+p[0]+'". I would like help with: '+p[4].join(", ")+'.')+'">Talk to us about it <span class="ar">→</span></a><button type="button" class="btn bg" id="qzRe">Retake quiz</button></div></div>';$("#qzRe").onclick=()=>{q=0;sc=[0,0,0,0];show()}}};show()}
 /* ---- 3. polaroid team desk ---- */
-const dk=$("#wnDesk");if(dk&&typeof TEAM!=="undefined"){const P=[...TEAM,{name:"Muhammad Abuzar",role:"Video Editor · Animator · Graphic Designer",photo:"/assets/team-album/muhammad-abuzar.webp"}].map(m=>{const el=document.createElement("div");el.className="pol";el.innerHTML='<div class="pol-in"><div class="pf"><img alt="'+esc(m.name)+'" loading="lazy" decoding="async" src="'+m.photo+'"><span>'+esc(m.name)+'</span></div><div class="pb"><b>'+esc(m.name)+'</b><small>'+esc(m.role)+'</small>'+socials(m)+'</div></div>';dk.appendChild(el);return{el,m,x:0,y:0,r:0}});
+const dk=$("#wnDesk");if(dk&&typeof TEAM!=="undefined"){const P=[...TEAM,{name:"Muhammad Abuzar",role:"Video Editor · Animator · Graphic Designer",photo:"/assets/team-album/muhammad-abuzar.webp?v=2"}].map(m=>{const el=document.createElement("div");el.className="pol";el.innerHTML='<div class="pol-in"><div class="pf"><img alt="'+esc(m.name)+'" loading="lazy" decoding="async" src="'+m.photo+'"><span>'+esc(m.name)+'</span></div><div class="pb"><b>'+esc(m.name)+'</b><small>'+esc(m.role)+'</small>'+socials(m)+'</div></div>';dk.appendChild(el);return{el,m,x:0,y:0,r:0}});
 let W=0,Hh=0,pw=170,ph=210,z=10,first=true,drag=null;const rnd=(a,b)=>a+Math.random()*(b-a);
 const apply=(p,lift)=>p.el.style.transform='translate('+p.x+'px,'+p.y+'px) rotate('+p.r+'deg)'+(lift?' scale(1.07)':'');
 const layout=mode=>{W=dk.clientWidth;if(!W)return;const cols=W<640?2:4,rows=Math.ceil(P.length/cols);pw=Math.min(200,W/cols*.8);ph=pw/.8;const cw=W/cols,ch=ph+40;Hh=rows*ch+50;dk.style.height=Hh+"px";dk.style.setProperty("--pw",pw+"px");
@@ -1609,7 +1609,7 @@ if(g2){gl.getExtension('EXT_color_buffer_float');gl.getExtension('EXT_color_buff
 else{const e=gl.getExtension('OES_texture_half_float');if(!e){kill();return}HT=e.HALF_FLOAT_OES;lin=!!gl.getExtension('OES_texture_half_float_linear');gl.getExtension('EXT_color_buffer_half_float')}
 const FILT=lin?gl.LINEAR:gl.NEAREST;
 // tuning (smoke look)
-const SIM=128,DYE=1024,VEL_DISS=1.2,DYE_DISS=1.5,PRES=.8,ITER=20,CURL=30,RAD=.002,FORCE=3200;
+const SIM=96,DYE=512,VEL_DISS=1.2,DYE_DISS=1.5,PRES=.8,ITER=12,CURL=30,RAD=.002,FORCE=3200;
 const VS='precision highp float;attribute vec2 aPosition;varying vec2 vUv,vL,vR,vT,vB;uniform vec2 texelSize;void main(){vUv=aPosition*.5+.5;vL=vUv-vec2(texelSize.x,0.);vR=vUv+vec2(texelSize.x,0.);vT=vUv+vec2(0.,texelSize.y);vB=vUv-vec2(0.,texelSize.y);gl_Position=vec4(aPosition,0.,1.);}';
 const H='precision highp float;precision highp sampler2D;varying vec2 vUv,vL,vR,vT,vB;uniform vec2 texelSize;';
 const FS={
@@ -1635,7 +1635,7 @@ function mk(W,H2,f){gl.activeTexture(gl.TEXTURE0);const t=gl.createTexture();gl.
 function dbl(W,H2,f){let a=mk(W,H2,f),b=mk(W,H2,f);return{get read(){return a},get write(){return b},swap(){const x=a;a=b;b=x}}}
 let vel,dye,pres,dv,cu;
 function rs(r){let a=gl.drawingBufferWidth/gl.drawingBufferHeight;if(a<1)a=1/a;const mn=Math.round(r),mx=Math.round(r*a);return gl.drawingBufferWidth>gl.drawingBufferHeight?[mx,mn]:[mn,mx]}
-function init(){const d=Math.min(devicePixelRatio||1,1.5);c.width=Math.round(w*d);c.height=Math.round(h*d);const[sw,sh]=rs(SIM),[dw,dh]=rs(DYE);vel=dbl(sw,sh,FILT);dye=dbl(dw,dh,FILT);pres=dbl(sw,sh,gl.NEAREST);dv=mk(sw,sh,gl.NEAREST);cu=mk(sw,sh,gl.NEAREST);if(bad)kill()}
+function init(){const d=Math.min(devicePixelRatio||1,1.25);c.width=Math.round(w*d);c.height=Math.round(h*d);const[sw,sh]=rs(SIM),[dw,dh]=rs(DYE);vel=dbl(sw,sh,FILT);dye=dbl(dw,dh,FILT);pres=dbl(sw,sh,gl.NEAREST);dv=mk(sw,sh,gl.NEAREST);cu=mk(sw,sh,gl.NEAREST);if(bad)kill()}
 init();if(dead)return;
 function use(k){gl.useProgram(P[k].p);return P[k].u}
 function step(dt){
@@ -1655,7 +1655,7 @@ function splat(x,y,dx,dy,d){gl.disable(gl.BLEND);const u=use('splat');gl.uniform
  gl.uniform1i(u.uTarget,dye.read.attach(0));gl.uniform3f(u.color,d,d,d);blit(dye.write);dye.swap()}
 function render(){gl.disable(gl.BLEND);const u=use('disp');gl.uniform2f(u.texelSize,dye.read.tx,dye.read.ty);gl.uniform1i(u.uTexture,dye.read.attach(0));blit(null)}
 let raf=0,last=0,lastMove=0;
-function frame(t){raf=0;if(!enabled||dead)return;const dt=Math.min(last?(t-last)/1000:.0167,.0167);last=t;if(dt>0)step(dt);render();
+function frame(t){raf=0;if(!enabled||dead||document.hidden)return;if(last&&t-last<32){raf=requestAnimationFrame(frame);return}const dt=Math.min(last?(t-last)/1000:.0333,.0333);last=t;if(dt>0)step(dt);render();
  if(performance.now()-lastMove<4500)raf=requestAnimationFrame(frame);else{last=0;gl.bindFramebuffer(gl.FRAMEBUFFER,null);gl.clearColor(0,0,0,0);gl.clear(gl.COLOR_BUFFER_BIT)}}
 function start(){if(!raf&&enabled&&!dead){last=0;raf=requestAnimationFrame(frame)}}
 let px=-1,py=-1;
