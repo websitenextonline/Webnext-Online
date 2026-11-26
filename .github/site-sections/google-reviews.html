@@ -45,7 +45,24 @@
 <div class="wn-gr-panel">
 <div class="wn-gr-widget" aria-label="Webnext Online reviews from Google">
 <div data-rr-widget="google-reviews" data-rr-business-id="ChIJKVHwXguT3zgRvhcTJYf9SWo" data-rr-layout="grid" data-rr-max-reviews="5" data-rr-show-reviewer-name="true" data-rr-show-reviewer-picture="true" data-rr-show-date="true" data-rr-show-rating="true" data-rr-show-business-reply="false" data-rr-preview-text-length="150" data-rr-align-cards-by-height="false" data-rr-freemium="true"></div>
-<script src="https://dashboard.reviewrover.co/widgets/rr-widget.js" async></script>
+<script>
+(()=>{
+  const section=document.getElementById("google-reviews");
+  const loadWidget=()=>{
+    const script=document.createElement("script");
+    script.src="https://dashboard.reviewrover.co/widgets/rr-widget.js";
+    script.async=true;
+    document.head.append(script);
+  };
+  if(!("IntersectionObserver" in window)){loadWidget();return;}
+  const observer=new IntersectionObserver(([entry])=>{
+    if(!entry.isIntersecting)return;
+    observer.disconnect();
+    loadWidget();
+  },{rootMargin:"300px"});
+  observer.observe(section);
+})();
+</script>
 <noscript><p>JavaScript is needed to display Google reviews. Use the link below to read them on Google.</p></noscript>
 </div>
 <div class="wn-gr-bottom"><span>Worked or learned with us?</span><div class="wn-gr-actions"><a href="https://www.google.com/maps/place/Webnext+Online/@33.5647531,73.0709863,582m/data=!3m2!1e3!4b1!4m6!3m5!1s0x38df930b5ef05129:0x6a49fd87251317be!8m2!3d33.5647487!4d73.0735612!16s%2Fg%2F11xp6xbb2s?entry=ttu" target="_blank" rel="noopener noreferrer">Read all Google reviews ↗</a><a href="https://www.google.com/maps/place/Webnext+Online/@33.5647531,73.0709863,582m/data=!3m2!1e3!4b1!4m6!3m5!1s0x38df930b5ef05129:0x6a49fd87251317be!8m2!3d33.5647487!4d73.0735612!16s%2Fg%2F11xp6xbb2s?entry=ttu" target="_blank" rel="noopener noreferrer">Share your experience ↗</a></div></div>
