@@ -8,7 +8,7 @@
 "rehman":["Rehman","Canva, MS Office & Social Media Marketing","rehman.webp"],
 "talal":["Talal","Video Editing & Graphic Designing","talal.webp"],
 "abdul-haseeb":["Abdul Haseeb","WordPress, AI & Social Media Marketing","abdul-haseeb.webp"],
-"taimoor":["Taimoor","Graphic Designer & Social Media Marketer","taimoor.webp"],
+"taimoor":["Taimoor Farooq","Digital Marketer & Content Strategist","taimoor.webp"],
 "hamza-farooq":["Hamza Farooq","Chief Executive Officer · WordPress & Marketing","hamza.webp"],
 "abdullah":["Abdullah","Team Member","abdullah.webp"],
 "sohail":["Sohail","WordPress, Quranic Teaching & Social Media Marketing","sohail.webp"]};
@@ -18,6 +18,11 @@ document.title=p[0]+" — Team Profile | WebNextOnline";
 document.getElementById("memberName").textContent=p[0];document.getElementById("memberRole").textContent=p[1];
 const image=document.getElementById("portrait");image.src="/assets/team-album/"+p[2];image.alt=p[0]+" — WebNextOnline team portrait";
 document.getElementById("portfolioTitle").textContent=p[0]+"'s portfolio";
+if(key==="taimoor"){
+const link=document.querySelector('.hero .actions .btn');link.href='/taimoor-farooq/';link.textContent='View Portfolio';
+document.getElementById('portfolioText').textContent='Explore Taimoor Farooq’s digital marketing services, creative tools, skills and contact details using View Portfolio above.';
+document.querySelector('#portfolio .note').hidden=true;
+}
 if(key==="abdul-haseeb"||key==="hamza-farooq"){
 document.getElementById("portfolioText").textContent="A dedicated portfolio page is available for this member, with selected design and website work.";
 const link=document.createElement("a");link.href="/"+key+"/";link.className="btn alt";link.textContent="Open dedicated portfolio ↗";document.querySelector("#portfolio .actions").prepend(link);
